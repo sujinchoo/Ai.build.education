@@ -1,0 +1,157 @@
+<section class="doc-layout"><aside class="toc-panel"><h3>목차</h3><ul class="toc-list"><li class="toc-level-1"><a href="#week-02-python-프로그래밍-기초">Week 02 — Python 프로그래밍 기초</a></li><li class="toc-level-2"><a href="#주제">주제</a></li><li class="toc-level-2"><a href="#비주얼-콘셉트">비주얼 콘셉트</a></li><li class="toc-level-3"><a href="#텍스트-흐름">텍스트 흐름</a></li><li class="toc-level-3"><a href="#그림">그림</a></li><li class="toc-level-2"><a href="#학습-목표">학습 목표</a></li><li class="toc-level-2"><a href="#python이란-무엇인가">Python이란 무엇인가</a></li><li class="toc-level-2"><a href="#python-프로그램-실행-구조">Python 프로그램 실행 구조</a></li><li class="toc-level-2"><a href="#변수-variable">변수 (Variable)</a></li><li class="toc-level-2"><a href="#자료형-data-type">자료형 (Data Type)</a></li><li class="toc-level-2"><a href="#리스트-list">리스트 (List)</a></li><li class="toc-level-2"><a href="#조건문-if-statement">조건문 (If Statement)</a></li><li class="toc-level-2"><a href="#함수-function">함수 (Function)</a></li><li class="toc-level-2"><a href="#python-프로그램-예제">Python 프로그램 예제</a></li><li class="toc-level-2"><a href="#핵심-개념-정리">핵심 개념 정리</a></li><li class="toc-level-2"><a href="#실습-미션">실습 미션</a></li><li class="toc-level-2"><a href="#확장-실습">확장 실습</a></li><li class="toc-level-2"><a href="#체크리스트">체크리스트</a></li></ul></aside><article class="doc-content"><h1 id="week-02-python-프로그래밍-기초">Week 02 — Python 프로그래밍 기초</h1>
+<h2 id="주제">주제</h2>
+<p>Python 프로그래밍의 기본 개념을 이해하고</p>
+<p>변수, 자료형, 조건문, 함수 구조를 이용하여 간단한 프로그램을 작성할 수 있다.</p>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>데이터 입력 → 변수 저장 → 조건문 분기 → 함수 처리 → 결과 출력</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">flowchart LR
+    D[데이터 입력] --&gt; V[변수 저장]
+    V --&gt; IF{조건문
+if / else}
+    IF --&gt;|참| F1[함수 처리 A]
+    IF --&gt;|거짓| F2[함수 처리 B]
+    F1 --&gt; R[결과 출력]
+    F2 --&gt; R</div>
+<hr />
+<h2 id="학습-목표">학습 목표</h2>
+<ul>
+<li>Python 프로그램의 기본 실행 구조 이해</li>
+<li>변수와 자료형 개념 이해</li>
+<li>리스트와 데이터 구조 이해</li>
+<li>조건문(if/else)을 이용한 프로그램 흐름 제어</li>
+<li>함수(def)를 이용한 코드 재사용 개념 이해</li>
+</ul>
+<hr />
+<h2 id="python이란-무엇인가">Python이란 무엇인가</h2>
+<p>Python은 배우기 쉽고 읽기 쉬운 프로그래밍 언어이다.</p>
+<p>다음과 같은 분야에서 사용된다.</p>
+<ul>
+<li>웹 개발</li>
+<li>데이터 분석</li>
+<li>인공지능</li>
+<li>자동화 프로그램</li>
+<li>서버 개발</li>
+</ul>
+<p>Python이 널리 사용되는 이유는 다음과 같다.</p>
+<ul>
+<li>문법이 간단하다</li>
+<li>코드 가독성이 높다</li>
+<li>다양한 라이브러리를 제공한다</li>
+<li>AI 개발에서 많이 사용된다</li>
+</ul>
+<hr />
+<h2 id="python-프로그램-실행-구조">Python 프로그램 실행 구조</h2>
+<p>Python 프로그램은 위에서 아래 순서로 실행된다.</p>
+<pre><code class="language-python">print(&quot;Hello&quot;)
+print(&quot;Python&quot;)</code></pre>
+<p>실행 결과</p>
+<pre><code class="language-text">Hello
+Python</code></pre>
+<p>Python은 명령어를 순차적으로 실행하는 인터프리터 언어이다.</p>
+<hr />
+<h2 id="변수-variable">변수 (Variable)</h2>
+<p>변수는 데이터를 저장하는 이름이 붙은 공간이다.</p>
+<pre><code class="language-python">name = &quot;Tom&quot;
+score = 85</code></pre>
+<p><code>=</code> 기호는 값을 저장(assign)하는 의미이다.</p>
+<hr />
+<h2 id="자료형-data-type">자료형 (Data Type)</h2>
+<table>
+<thead><tr><th>자료형</th><th>설명</th><th>예</th></tr></thead><tbody>
+<tr><td>str</td><td>문자열</td><td>&quot;hello&quot;</td></tr>
+<tr><td>int</td><td>정수</td><td>10</td></tr>
+<tr><td>float</td><td>실수</td><td>3.14</td></tr>
+<tr><td>list</td><td>여러 데이터</td><td>[1,2,3]</td></tr>
+</tbody></table>
+<pre><code class="language-python">name = &quot;Alice&quot;
+age = 20
+height = 165.5
+numbers = [1,2,3]</code></pre>
+<hr />
+<h2 id="리스트-list">리스트 (List)</h2>
+<p>리스트는 여러 데이터를 하나의 변수에 저장하는 자료형이다.</p>
+<pre><code class="language-python">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;]
+print(fruits[0])</code></pre>
+<p>결과</p>
+<pre><code class="language-text">apple</code></pre>
+<p>Python 리스트는 0번부터 시작한다.</p>
+<hr />
+<h2 id="조건문-if-statement">조건문 (If Statement)</h2>
+<p>조건문은 특정 조건에 따라 다른 코드를 실행한다.</p>
+<pre><code class="language-python">score = 70
+
+if score &gt;= 60:
+    print(&quot;합격&quot;)
+else:
+    print(&quot;불합격&quot;)</code></pre>
+<hr />
+<h2 id="함수-function">함수 (Function)</h2>
+<p>함수는 특정 기능을 수행하는 코드 묶음이다.</p>
+<pre><code class="language-python">def add(a, b):
+    result = a + b
+    return result
+
+print(add(3, 5))</code></pre>
+<p>결과</p>
+<pre><code class="language-text">8</code></pre>
+<hr />
+<h2 id="python-프로그램-예제">Python 프로그램 예제</h2>
+<pre><code class="language-python">name = &quot;Tom&quot;
+score = 75
+
+def pass_or_fail(score):
+    if score &gt;= 60:
+        return &quot;합격&quot;
+    return &quot;불합격&quot;
+
+result = pass_or_fail(score)
+print(name, result)</code></pre>
+<p>실행 결과</p>
+<pre><code class="language-text">Tom 합격</code></pre>
+<hr />
+<h2 id="핵심-개념-정리">핵심 개념 정리</h2>
+<p>Python 프로그램은 다음 요소로 구성된다.</p>
+<ul>
+<li>변수</li>
+<li>자료형</li>
+<li>조건문</li>
+<li>함수</li>
+</ul>
+<p>이 네 가지 개념을 이해하면 대부분의 프로그램 구조를 이해할 수 있다.</p>
+<hr />
+<h2 id="실습-미션">실습 미션</h2>
+<p>학생 이름과 점수를 입력받아 합격 여부를 출력하는 프로그램을 작성한다.</p>
+<p>조건</p>
+<ul>
+<li>합격 기준 점수 = 60</li>
+<li>함수 사용</li>
+<li>결과 출력</li>
+</ul>
+<pre><code class="language-python">name = &quot;Tom&quot;
+score = 80
+
+def check(score):
+    if score &gt;= 60:
+        return &quot;합격&quot;
+    return &quot;불합격&quot;
+
+print(name, check(score))</code></pre>
+<hr />
+<h2 id="확장-실습">확장 실습</h2>
+<ul>
+<li>합격 기준 점수를 변수로 만들기</li>
+<li>점수가 0~100 범위를 벗어나면 오류 메시지 출력</li>
+<li>여러 학생 점수를 리스트로 관리하기</li>
+</ul>
+<hr />
+<h2 id="체크리스트">체크리스트</h2>
+<ul>
+<li>[ ] 변수 개념을 설명할 수 있다</li>
+<li>[ ] 자료형 종류를 설명할 수 있다</li>
+<li>[ ] 조건문을 사용할 수 있다</li>
+<li>[ ] 함수를 정의하고 사용할 수 있다</li>
+<li>[ ] 간단한 Python 프로그램을 작성할 수 있다</li>
+</ul></article></section>

@@ -1,0 +1,26 @@
+<section class="doc-layout"><aside class="toc-panel"><h3>목차</h3><ul class="toc-list"><li class="toc-level-1"><a href="#week-05-neural-network-기초">Week 05 — Neural Network 기초</a></li><li class="toc-level-2"><a href="#주제">주제</a></li><li class="toc-level-2"><a href="#비주얼-콘셉트">비주얼 콘셉트</a></li><li class="toc-level-3"><a href="#텍스트-흐름">텍스트 흐름</a></li><li class="toc-level-3"><a href="#그림">그림</a></li><li class="toc-level-2"><a href="#학습-목표">학습 목표</a></li><li class="toc-level-2"><a href="#실습-미션">실습 미션</a></li></ul></aside><article class="doc-content"><h1 id="week-05-neural-network-기초">Week 05 — Neural Network 기초</h1>
+<h2 id="주제">주제</h2>
+<p>퍼셉트론과 다층 신경망 구조, 활성화 함수, 학습 과정을 이해한다.</p>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>입력층 → 은닉층(활성화 함수) → 출력층 → 손실 계산 → 역전파로 가중치 업데이트</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">flowchart LR
+    I[입력층] --&gt; H[은닉층
+ReLU/Sigmoid]
+    H --&gt; O[출력층]
+    O --&gt; L[손실 계산]
+    L --&gt; B[역전파]
+    B --&gt; W[가중치 업데이트]
+    W --&gt; H</div>
+<hr />
+<h2 id="학습-목표">학습 목표</h2>
+<ul>
+<li>퍼셉트론 구조 이해</li>
+<li>ReLU/Sigmoid/Softmax 역할 구분</li>
+<li>오차역전파 개념 이해</li>
+</ul>
+<hr />
+<h2 id="실습-미션">실습 미션</h2>
+<p>간단한 <code>MLPClassifier</code>를 이용해 이진 분류 실습 후 정확도 확인.</p></article></section>
