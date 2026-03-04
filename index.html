@@ -1,123 +1,382 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Builder Curriculum</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 서비스 개발 12주 커리큘럼</title>
 <style>
+:root {
+  --bg: #f3f6fb;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --sidebar: #0f172a;
+  --sidebar-muted: #94a3b8;
+  --sidebar-active: #1e293b;
+}
+* { box-sizing: border-box; }
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    display: flex;
-    height: 100vh;
-    background: #f4f6f9;
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
 }
-
 .sidebar {
-    width: 260px;
-    background: #111827;
-    color: white;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
+  width: 320px;
+  background: var(--sidebar);
+  color: white;
+  padding: 24px 16px;
+  border-right: 1px solid #0b1220;
+  overflow-y: auto;
 }
-
-.sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
+.sidebar h1 { font-size: 20px; margin: 0 0 6px; }
+.sidebar p { margin: 0 0 18px; color: var(--sidebar-muted); font-size: 13px; line-height: 1.5; }
+.lecture-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lecture-btn {
+  width: 100%; background: transparent; color: var(--sidebar-muted); border: 1px solid transparent;
+  text-align: left; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 14px; line-height: 1.35;
 }
-
-.sidebar a {
-    display: block;
-    color: #9ca3af;
-    text-decoration: none;
-    padding: 8px 0;
-    font-size: 14px;
+.lecture-btn:hover, .lecture-btn.active { color: white; background: var(--sidebar-active); border-color: #334155; }
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.topbar {
+  padding: 18px 28px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(4px);
 }
-
-.sidebar a:hover {
-    color: white;
+.progress { font-size: 14px; color: var(--muted); }
+.content-wrap { flex: 1; overflow-y: auto; padding: 28px; }
+.slide {
+  max-width: 980px; margin: 0 auto; background: var(--card); border: 1px solid var(--line);
+  border-radius: 18px; box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07); padding: 30px;
 }
-
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.slide h1, .slide h2, .slide h3 { margin-top: 18px; margin-bottom: 10px; }
+.slide h1 { font-size: 30px; margin-top: 0; }
+.slide h2 { font-size: 24px; }
+.slide h3 { font-size: 20px; }
+.slide p, .slide li { line-height: 1.7; }
+.slide pre {
+  background: #0b1220; color: #e2e8f0; padding: 14px; border-radius: 10px; overflow-x: auto;
 }
-
-.content {
-    flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-    background: white;
+.slide code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.slide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+.slide th, .slide td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.slide blockquote {
+  margin: 12px 0; border-left: 4px solid var(--primary); padding: 8px 12px; background: #eff6ff; color: #1e3a8a;
 }
-
-.content h1 {
-    margin-top: 0;
-}
-
+.status { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
 .footer-nav {
-    padding: 15px 30px;
-    background: #e5e7eb;
-    display: flex;
-    justify-content: space-between;
+  border-top: 1px solid var(--line); background: white; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center;
 }
-
-button {
-    padding: 8px 16px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
+.nav-btn {
+  padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line);
+  background: white; color: var(--text); font-weight: 600; cursor: pointer;
 }
-
-button:hover {
-    background: #1e40af;
+.nav-btn.primary { background: var(--primary); color: white; border-color: var(--primary); }
+.nav-btn.primary:hover { background: var(--primary-dark); }
+.nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (max-width: 960px) {
+  body { flex-direction: column; }
+  .sidebar { width: 100%; max-height: 300px; }
+  .content-wrap { padding: 16px; }
+  .slide { padding: 20px; }
 }
 </style>
 </head>
-
 <body>
+<aside class="sidebar">
+  <h1>AI 서비스 개발 12주</h1>
+  <p>좌측 목차 클릭 시 자동 이동 · 중앙 슬라이드 Markdown 렌더링 · 하단 이전/다음 탐색</p>
+  <ul class="lecture-list" id="lectureList"></ul>
+</aside>
 
-<div class="sidebar">
-    <h2>AI Builder Curriculum</h2>
-    <a href="#">Module 1 - AI 기초 이해</a>
-    <a href="#">Module 2 - 머신러닝 구조</a>
-    <a href="#">Module 3 - 딥러닝과 LLM</a>
-    <a href="#">Module 4 - 서비스 설계</a>
-    <a href="#">Module 5 - 배포 실전</a>
-</div>
+<main class="main">
+  <div class="topbar">
+    <div class="progress" id="progressText">로딩 중...</div>
+  </div>
 
-<div class="main">
-    <div class="content">
-        <h1>문과생을 위한 AI Builder 과정</h1>
-        <p>
-        이 과정은 AI를 소비하는 사람이 아니라, 
-        AI 서비스를 직접 설계하고 배포할 수 있는 제작자를 양성하는 것을 목표로 합니다.
-        </p>
+  <div class="content-wrap">
+    <article class="slide" id="slideContainer">
+      <p>강의 자료를 불러오는 중입니다...</p>
+    </article>
+  </div>
 
-        <h2>3단계 학습 구조</h2>
-        <ul>
-            <li><strong>1단계:</strong> 이해 (Understand)</li>
-            <li><strong>2단계:</strong> 구현 (Build)</li>
-            <li><strong>3단계:</strong> 배포 (Deploy)</li>
-        </ul>
+  <div class="footer-nav">
+    <button id="prevBtn" class="nav-btn">이전 강의</button>
+    <button id="nextBtn" class="nav-btn primary">다음</button>
+  </div>
+</main>
 
-        <h2>최종 목표</h2>
-        <p>
-        GitHub에 프로젝트를 업로드하고,
-        Static Page로 공개하며,
-        자신만의 AI 서비스를 세상에 배포합니다.
-        </p>
-    </div>
+<script>
+const totalWeeks = 12;
+const lectureFiles = Array.from({ length: totalWeeks }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return {
+    id: i,
+    title: `Week ${n}`,
+    path: `curriculum/week${n}.md`
+  };
+});
 
-    <div class="footer-nav">
-        <button disabled>이전 페이지</button>
-        <button>다음 페이지</button>
-    </div>
-</div>
+const lectureList = document.getElementById("lectureList");
+const slideContainer = document.getElementById("slideContainer");
+const progressText = document.getElementById("progressText");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
+const mdCache = new Map();
+let currentIndex = 0;
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function inlineMarkdown(text) {
+  return text
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+}
+
+function markdownToHtml(md) {
+  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  const html = [];
+  let inCode = false;
+  let inUl = false;
+  let inOl = false;
+  let inTable = false;
+  let inBlockquote = false;
+
+  const closeAllLists = () => {
+    if (inUl) { html.push("</ul>"); inUl = false; }
+    if (inOl) { html.push("</ol>"); inOl = false; }
+  };
+
+  const closeTable = () => {
+    if (inTable) {
+      html.push("</tbody></table>");
+      inTable = false;
+    }
+  };
+
+  const closeBlockquote = () => {
+    if (inBlockquote) {
+      html.push("</blockquote>");
+      inBlockquote = false;
+    }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    const line = raw.trim();
+
+    if (line.startsWith("```")) {
+      closeAllLists();
+      closeTable();
+      closeBlockquote();
+      if (!inCode) {
+        inCode = true;
+        html.push("<pre><code>");
+      } else {
+        inCode = false;
+        html.push("</code></pre>");
+      }
+      continue;
+    }
+
+    if (inCode) {
+      html.push(`${escapeHtml(raw)}\n`);
+      continue;
+    }
+
+    if (!line) {
+      closeAllLists();
+      closeBlockquote();
+      if (!inTable) html.push("");
+      continue;
+    }
+
+    if (line === "---") {
+      closeAllLists();
+      closeTable();
+      closeBlockquote();
+      html.push("<hr />");
+      continue;
+    }
+
+    if (/^>\s+/.test(line)) {
+      closeAllLists();
+      closeTable();
+      if (!inBlockquote) {
+        html.push("<blockquote>");
+        inBlockquote = true;
+      }
+      html.push(`<p>${inlineMarkdown(escapeHtml(line.replace(/^>\s+/, "")))}</p>`);
+      continue;
+    } else {
+      closeBlockquote();
+    }
+
+    if (/^\|.+\|$/.test(line)) {
+      closeAllLists();
+      const cols = line.split("|").slice(1, -1).map(c => inlineMarkdown(escapeHtml(c.trim())));
+      const next = lines[i + 1] ? lines[i + 1].trim() : "";
+      const isSeparator = /^\|?\s*[:-]-+/.test(next);
+
+      if (!inTable) {
+        inTable = true;
+        html.push("<table>");
+      }
+
+      if (isSeparator) {
+        html.push(`<thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>`);
+        i += 1;
+      } else {
+        html.push(`<tr>${cols.map(c => `<td>${c}</td>`).join("")}</tr>`);
+      }
+      continue;
+    } else {
+      closeTable();
+    }
+
+    const heading = line.match(/^(#{1,6})\s+(.*)$/);
+    if (heading) {
+      closeAllLists();
+      const level = heading[1].length;
+      const text = inlineMarkdown(escapeHtml(heading[2]));
+      html.push(`<h${level}>${text}</h${level}>`);
+      continue;
+    }
+
+    const ul = line.match(/^[-*]\s+(.*)$/);
+    if (ul) {
+      if (!inUl) {
+        closeTable();
+        if (inOl) { html.push("</ol>"); inOl = false; }
+        html.push("<ul>");
+        inUl = true;
+      }
+      html.push(`<li>${inlineMarkdown(escapeHtml(ul[1]))}</li>`);
+      continue;
+    }
+
+    const ol = line.match(/^\d+\.\s+(.*)$/);
+    if (ol) {
+      if (!inOl) {
+        closeTable();
+        if (inUl) { html.push("</ul>"); inUl = false; }
+        html.push("<ol>");
+        inOl = true;
+      }
+      html.push(`<li>${inlineMarkdown(escapeHtml(ol[1]))}</li>`);
+      continue;
+    }
+
+    closeAllLists();
+    html.push(`<p>${inlineMarkdown(escapeHtml(line))}</p>`);
+  }
+
+  if (inCode) html.push("</code></pre>");
+  closeAllLists();
+  closeTable();
+  closeBlockquote();
+  return html.join("\n");
+}
+
+async function fetchMarkdown(index) {
+  if (mdCache.has(index)) return mdCache.get(index);
+  const file = lectureFiles[index];
+  const res = await fetch(file.path, { cache: "no-store" });
+  if (!res.ok) throw new Error(`파일 로드 실패: ${file.path}`);
+  const text = await res.text();
+  mdCache.set(index, text);
+  return text;
+}
+
+function extractTitle(md, fallback) {
+  const firstHeading = md.match(/^#\s+(.+)$/m);
+  return firstHeading ? firstHeading[1].trim() : fallback;
+}
+
+async function preloadTitles() {
+  const jobs = lectureFiles.map(async (item, index) => {
+    try {
+      const md = await fetchMarkdown(index);
+      item.title = extractTitle(md, item.title);
+    } catch {
+      item.title = `${item.title} (로드 실패)`;
+    }
+  });
+  await Promise.all(jobs);
+}
+
+function renderLectureList() {
+  lectureList.innerHTML = "";
+  lectureFiles.forEach((lecture, index) => {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.className = "lecture-btn";
+    button.textContent = `${index + 1}. ${lecture.title}`;
+    button.addEventListener("click", () => {
+      currentIndex = index;
+      render();
+    });
+    li.appendChild(button);
+    lectureList.appendChild(li);
+  });
+}
+
+async function render() {
+  prevBtn.disabled = true;
+  nextBtn.disabled = true;
+  progressText.textContent = `${currentIndex + 1} / ${lectureFiles.length} 페이지 로딩 중...`;
+  slideContainer.innerHTML = `<p class="status">강의 자료를 불러오는 중입니다...</p>`;
+
+  try {
+    const md = await fetchMarkdown(currentIndex);
+    slideContainer.innerHTML = markdownToHtml(md);
+  } catch (error) {
+    slideContainer.innerHTML = `
+      <h2>강의 로딩 오류</h2>
+      <p>${error.message}</p>
+      <p>파일 경로를 확인하세요: <code>${lectureFiles[currentIndex].path}</code></p>
+    `;
+  }
+
+  [...document.querySelectorAll(".lecture-btn")].forEach((btn, index) => {
+    btn.classList.toggle("active", index === currentIndex);
+  });
+
+  progressText.textContent = `${currentIndex + 1} / ${lectureFiles.length} 페이지`;
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === lectureFiles.length - 1;
+  nextBtn.textContent = currentIndex === lectureFiles.length - 1 ? "마침" : (currentIndex === 0 ? "다음" : "다음 강의");
+}
+
+prevBtn.addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex -= 1;
+    render();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (currentIndex < lectureFiles.length - 1) {
+    currentIndex += 1;
+    render();
+  }
+});
+
+(async function init() {
+  await preloadTitles();
+  renderLectureList();
+  render();
+})();
+</script>
 </body>
 </html>
