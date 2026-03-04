@@ -35,6 +35,34 @@ def inline_markdown(text: str) -> str:
     return text
 
 
+def normalize_mermaid(content: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        return "[" + match.group(1).replace("\n", "<br/>") + "]"
+
+    normalized = re.sub(r"\[(.*?)\]", repl, content, flags=re.DOTALL)
+
+    lines = [line.rstrip() for line in normalized.splitlines() if line.strip()]
+    if not lines:
+        return ""
+
+    first = lines[0].strip()
+    m = re.match(r"^(flowchart|graph)\s+([A-Za-z]{2})$", first)
+    if m:
+        lines[0] = f"{m.group(1)} {m.group(2)};"
+
+    body = []
+    for idx, line in enumerate(lines):
+        text = line.strip()
+        if idx == 0:
+            body.append(text)
+            continue
+        if not text.endswith(';'):
+            text += ';'
+        body.append(text)
+
+    return "\n".join(body)
+
+
 def convert_markdown(md: str) -> tuple[str, list[Heading], str]:
     lines = md.replace("\r\n", "\n").split("\n")
     html: list[str] = []
@@ -61,7 +89,7 @@ def convert_markdown(md: str) -> tuple[str, list[Heading], str]:
             else:
                 content = "\n".join(code_buffer)
                 if code_lang == "mermaid":
-                    html.append(f'<div class="mermaid">{escape(content)}</div>')
+                    html.append(f'<div class="mermaid">{normalize_mermaid(content)}</div>')
                 else:
                     klass = f' class="language-{code_lang}"' if code_lang else ""
                     html.append(f"<pre><code{klass}>{escape(content)}</code></pre>")
@@ -200,22 +228,7 @@ def convert_markdown(md: str) -> tuple[str, list[Heading], str]:
         html.append("</tbody></table>")
 
     title = headings[0].text if headings else "Untitled"
-    toc_html = ["<ul class=\"toc-list\">"]
-    for h in headings:
-        if h.level <= 3:
-            toc_html.append(
-                f'<li class="toc-level-{h.level}"><a href="#{h.slug}">{escape(h.text)}</a></li>'
-            )
-    toc_html.append("</ul>")
-
-    wrapped = (
-        '<section class="doc-layout">'
-        '<aside class="toc-panel"><h3>목차</h3>'
-        + "".join(toc_html)
-        + '</aside><article class="doc-content">'
-        + "\n".join(html)
-        + "</article></section>"
-    )
+    wrapped = '<article class="doc-content">' + "\n".join(html) + "</article>"
     return wrapped, headings, title
 
 

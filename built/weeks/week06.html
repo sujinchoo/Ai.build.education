@@ -1,4 +1,4 @@
-<section class="doc-layout"><aside class="toc-panel"><h3>목차</h3><ul class="toc-list"><li class="toc-level-1"><a href="#week-06-cnn-rnn-기초">Week 06 — CNN &amp; RNN 기초</a></li><li class="toc-level-2"><a href="#주제">주제</a></li><li class="toc-level-2"><a href="#비주얼-콘셉트">비주얼 콘셉트</a></li><li class="toc-level-3"><a href="#텍스트-흐름">텍스트 흐름</a></li><li class="toc-level-3"><a href="#그림">그림</a></li><li class="toc-level-2"><a href="#학습-목표">학습 목표</a></li><li class="toc-level-2"><a href="#실습-미션">실습 미션</a></li></ul></aside><article class="doc-content"><h1 id="week-06-cnn-rnn-기초">Week 06 — CNN &amp; RNN 기초</h1>
+<article class="doc-content"><h1 id="week-06-cnn-rnn-기초">Week 06 — CNN &amp; RNN 기초</h1>
 <h2 id="주제">주제</h2>
 <p>이미지 처리(CNN)와 순차 데이터 처리(RNN/LSTM)의 차이를 이해한다.</p>
 <hr />
@@ -9,17 +9,16 @@
 <li>순차 데이터: 시간순 입력(RNN/LSTM) → 상태 전달 → 다음 값 예측</li>
 </ul>
 <h3 id="그림">그림</h3>
-<div class="mermaid">flowchart LR
-    IMG[이미지] --&gt; CNN[CNN
-Convolution+Pooling]
-    CNN --&gt; CL[이미지 분류]</div>
-<div class="mermaid">flowchart LR
-    X1[x(t1)] --&gt; H1[h1]
-    H1 --&gt; H2[h2]
-    X2[x(t2)] --&gt; H2
-    H2 --&gt; H3[h3]
-    X3[x(t3)] --&gt; H3
-    H3 --&gt; Y[시계열/문장 예측]</div>
+<div class="mermaid">flowchart LR;
+IMG[이미지] --> CNN[CNN<br/>Convolution+Pooling];
+CNN --> CL[이미지 분류];</div>
+<div class="mermaid">flowchart LR;
+X1[x(t1)] --> H1[h1];
+H1 --> H2[h2];
+X2[x(t2)] --> H2;
+H2 --> H3[h3];
+X3[x(t3)] --> H3;
+H3 --> Y[시계열/문장 예측];</div>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
@@ -29,4 +28,4 @@ Convolution+Pooling]
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p>CNN 모델 요약 출력, RNN 예제 입력 형태 비교 정리.</p></article></section>
+<p>CNN 모델 요약 출력, RNN 예제 입력 형태 비교 정리.</p></article>

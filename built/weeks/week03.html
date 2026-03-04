@@ -1,4 +1,4 @@
-<section class="doc-layout"><aside class="toc-panel"><h3>목차</h3><ul class="toc-list"><li class="toc-level-1"><a href="#week-03-flask-서버-기초">Week 03 — Flask 서버 기초</a></li><li class="toc-level-2"><a href="#주제">주제</a></li><li class="toc-level-2"><a href="#비주얼-콘셉트">비주얼 콘셉트</a></li><li class="toc-level-3"><a href="#텍스트-흐름">텍스트 흐름</a></li><li class="toc-level-3"><a href="#그림">그림</a></li><li class="toc-level-2"><a href="#학습-목표">학습 목표</a></li><li class="toc-level-2"><a href="#핵심-코드">핵심 코드</a></li><li class="toc-level-2"><a href="#실습-미션">실습 미션</a></li></ul></aside><article class="doc-content"><h1 id="week-03-flask-서버-기초">Week 03 — Flask 서버 기초</h1>
+<article class="doc-content"><h1 id="week-03-flask-서버-기초">Week 03 — Flask 서버 기초</h1>
 <h2 id="주제">주제</h2>
 <p>웹의 요청/응답 구조를 이해하고 Flask로 간단한 서버를 만든다.</p>
 <hr />
@@ -7,11 +7,11 @@
 <p>브라우저 요청(Request) → Flask 라우팅 → 서버 로직 처리 → HTML/JSON 응답(Response)</p>
 <h3 id="그림">그림</h3>
 <div class="mermaid">sequenceDiagram
-    participant U as 사용자(브라우저)
-    participant S as Flask 서버
-    U-&gt;&gt;S: GET /welcome/Alex
-    S-&gt;&gt;S: 라우트 매칭 + 함수 실행
-    S--&gt;&gt;U: HTML 또는 JSON 응답</div>
+participant U as 사용자(브라우저);
+participant S as Flask 서버;
+U->>S: GET /welcome/Alex;
+S->>S: 라우트 매칭 + 함수 실행;
+S-->>U: HTML 또는 JSON 응답;</div>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
@@ -34,4 +34,4 @@ def home():
 <ul>
 <li><code>/welcome/&lt;name&gt;</code> 라우트를 추가해 환영 메시지 반환</li>
 <li><code>/about</code> 페이지를 만들고 강의 소개 텍스트 표시</li>
-</ul></article></section>
+</ul></article>
