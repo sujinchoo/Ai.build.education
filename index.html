@@ -84,6 +84,10 @@ body {
 .nav-btn.primary { background: var(--primary); color: white; border-color: var(--primary); }
 .nav-btn.primary:hover { background: var(--primary-dark); }
 .nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (max-width: 1080px) {
+  .doc-layout { grid-template-columns: 1fr; }
+  .toc-panel { position: relative; top: auto; }
+}
 @media (max-width: 960px) {
   body { flex-direction: column; }
   .sidebar { width: 100%; max-height: 300px; }
