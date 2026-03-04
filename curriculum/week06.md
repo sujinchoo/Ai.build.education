@@ -14,18 +14,17 @@
 ### 그림
 ```mermaid
 flowchart LR
-    IMG[이미지] --> CNN[CNN
-Convolution+Pooling]
+    IMG[이미지] --> CNN[CNN: Convolution + Pooling]
     CNN --> CL[이미지 분류]
 ```
 
 ```mermaid
 flowchart LR
-    X1[x(t1)] --> H1[h1]
+    X1[x_t1] --> H1[h1]
     H1 --> H2[h2]
-    X2[x(t2)] --> H2
+    X2[x_t2] --> H2
     H2 --> H3[h3]
-    X3[x(t3)] --> H3
+    X3[x_t3] --> H3
     H3 --> Y[시계열/문장 예측]
 ```
 
