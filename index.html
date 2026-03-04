@@ -3,121 +3,534 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Builder Curriculum</title>
-
+<title>AI 서비스 개발 12주 커리큘럼</title>
 <style>
+:root {
+    --bg: #f3f6fb;
+    --card: #ffffff;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --text: #111827;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --sidebar: #0f172a;
+    --sidebar-muted: #94a3b8;
+    --sidebar-active: #1e293b;
+}
+
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
     display: flex;
-    height: 100vh;
-    background: #f4f6f9;
 }
 
 .sidebar {
-    width: 260px;
-    background: #111827;
+    width: 320px;
+    background: var(--sidebar);
     color: white;
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 24px 16px;
+    border-right: 1px solid #0b1220;
     overflow-y: auto;
 }
 
-.sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
+.sidebar h1 {
+    font-size: 20px;
+    margin: 0 0 6px;
 }
 
-.sidebar a {
-    display: block;
-    color: #9ca3af;
-    text-decoration: none;
-    padding: 8px 0;
+.sidebar p {
+    margin: 0 0 18px;
+    color: var(--sidebar-muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.lecture-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.lecture-btn {
+    width: 100%;
+    background: transparent;
+    color: var(--sidebar-muted);
+    border: 1px solid transparent;
+    text-align: left;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
     font-size: 14px;
+    line-height: 1.35;
 }
 
-.sidebar a:hover {
+.lecture-btn:hover,
+.lecture-btn.active {
     color: white;
+    background: var(--sidebar-active);
+    border-color: #334155;
 }
 
 .main {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
-.content {
+.topbar {
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(4px);
+}
+
+.progress {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.content-wrap {
     flex: 1;
-    padding: 40px;
     overflow-y: auto;
-    background: white;
+    padding: 28px;
 }
 
-.content h1 {
-    margin-top: 0;
+.slide {
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07);
+    padding: 30px;
+}
+
+.badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+}
+
+.slide h2 {
+    margin: 0 0 10px;
+    font-size: 28px;
+}
+
+.meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.section {
+    margin: 18px 0;
+}
+
+.section h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.section ul {
+    margin: 0;
+    padding-left: 22px;
+    line-height: 1.7;
 }
 
 .footer-nav {
-    padding: 15px 30px;
-    background: #e5e7eb;
+    border-top: 1px solid var(--line);
+    background: white;
+    padding: 14px 28px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-button {
-    padding: 8px 16px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    border-radius: 6px;
+.nav-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: white;
+    color: var(--text);
+    font-weight: 600;
     cursor: pointer;
 }
 
-button:hover {
-    background: #1e40af;
+.nav-btn.primary {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.nav-btn.primary:hover { background: var(--primary-dark); }
+
+.nav-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+@media (max-width: 960px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; max-height: 300px; }
+    .content-wrap { padding: 16px; }
+    .slide { padding: 20px; }
 }
 </style>
 </head>
-
 <body>
+    <aside class="sidebar">
+        <h1>AI 서비스 개발 12주</h1>
+        <p>코세라 스타일 학습 화면 · 좌측 목차 클릭 시 자동 이동 · 중앙 슬라이드형 강의자료</p>
+        <ul class="lecture-list" id="lectureList"></ul>
+    </aside>
 
-<div class="sidebar">
-    <h2>AI Builder Curriculum</h2>
-    <a href="#">Module 1 - AI 기초 이해</a>
-    <a href="#">Module 2 - 머신러닝 구조</a>
-    <a href="#">Module 3 - 딥러닝과 LLM</a>
-    <a href="#">Module 4 - 서비스 설계</a>
-    <a href="#">Module 5 - 배포 실전</a>
-</div>
+    <main class="main">
+        <div class="topbar">
+            <div class="progress" id="progressText">1 / 13 페이지</div>
+        </div>
 
-<div class="main">
-    <div class="content">
-        <h1>문과생을 위한 AI Builder 과정</h1>
-        <p>
-        이 과정은 AI를 소비하는 사람이 아니라, 
-        AI 서비스를 직접 설계하고 배포할 수 있는 제작자를 양성하는 것을 목표로 합니다.
-        </p>
+        <div class="content-wrap">
+            <article class="slide" id="slideContainer"></article>
+        </div>
 
-        <h2>3단계 학습 구조</h2>
-        <ul>
-            <li><strong>1단계:</strong> 이해 (Understand)</li>
-            <li><strong>2단계:</strong> 구현 (Build)</li>
-            <li><strong>3단계:</strong> 배포 (Deploy)</li>
-        </ul>
+        <div class="footer-nav">
+            <button id="prevBtn" class="nav-btn">이전 강의</button>
+            <button id="nextBtn" class="nav-btn primary">다음</button>
+        </div>
+    </main>
 
-        <h2>최종 목표</h2>
-        <p>
-        GitHub에 프로젝트를 업로드하고,
-        Static Page로 공개하며,
-        자신만의 AI 서비스를 세상에 배포합니다.
-        </p>
-    </div>
+<script>
+const lectures = [
+    {
+        title: "오리엔테이션: 12주 로드맵",
+        stage: "전체 안내",
+        duration: "약 20분",
+        visual: "전체 4단계(기초 → ML/DL → LLM → 배포)를 하나의 여정 지도처럼 보여주는 학습맵",
+        goals: [
+            "12주 학습 목표와 산출물(GitHub 정적 페이지 기반 강의자료/프로젝트) 이해",
+            "각 주차 수업 흐름(개념 8분 + 데모 8분 + 실습 미션 4분) 파악",
+            "학습 준비물: Python, VS Code, GitHub 계정, 기본 터미널 사용법 안내"
+        ],
+        content: [
+            "이 과정은 비전공 초급자도 AI 서비스 MVP를 설계·구현·배포할 수 있도록 설계됨",
+            "매주 강의는 짧은 이론 + 즉시 실행 가능한 실습으로 구성",
+            "최종 결과물: AI 기능이 포함된 웹 서비스와 발표 자료"
+        ],
+        mission: "GitHub 저장소 생성 후 index.html 첫 페이지를 커밋해 학습 포트폴리오 시작하기"
+    },
+    {
+        title: "1주차: 파이썬, 데이터 흐름 이해 + 컴퓨터 원리/역사",
+        stage: "1단계 · 개발 기초 및 환경 구축",
+        duration: "약 20분",
+        visual: "데이터가 변수 상자에 담겨 함수 컨베이어 벨트를 지나 결과로 변환되는 인포그래픽",
+        goals: [
+            "컴퓨터의 기본 원리(입력·처리·저장·출력)와 역사(튜링 머신, 폰 노이만 구조, 현대 컴퓨팅) 이해",
+            "파이썬 문법 기초: 변수, 자료형, 조건문(if/else), 함수(def) 작성",
+            "Pandas로 CSV(엑셀) 데이터를 불러와 표와 간단 시각화까지 수행"
+        ],
+        content: [
+            "변수 선언, 문자열/숫자/리스트 다루기, 조건문으로 분기 만들기",
+            "def로 재사용 가능한 함수 정의 및 인자/반환값 개념",
+            "pandas.read_csv(), groupby(), plot()으로 데이터 요약 및 차트 확인"
+        ],
+        mission: "학생 점수 데이터를 읽어 합격/불합격을 분류하고 막대그래프로 시각화하기"
+    },
+    {
+        title: "2주차: HTML/CSS, 눈에 보이는 웹의 구조",
+        stage: "1단계 · 개발 기초 및 환경 구축",
+        duration: "약 20분",
+        visual: "웹페이지를 골격(HTML)과 피부/옷(CSS)으로 분리한 해부도",
+        goals: [
+            "HTML 문서 구조(head, body, semantic tag) 이해",
+            "CSS 선택자, 박스모델, Flexbox 정렬 개념 습득",
+            "실습: 강의 카드 레이아웃을 반응형으로 구성"
+        ],
+        content: [
+            "h1~h3, p, ul/li, a, button 등 핵심 태그 조합",
+            "display:flex, justify-content, align-items로 화면 배치",
+            "모바일 대응을 위한 미디어쿼리 기본 적용"
+        ],
+        mission: "강의 소개 카드 3개를 만들고 hover 효과를 적용해 UI 완성하기"
+    },
+    {
+        title: "3주차: Flask, 서버와 클라이언트의 대화",
+        stage: "1단계 · 개발 기초 및 환경 구축",
+        duration: "약 20분",
+        visual: "식당 비유: 손님의 요청(Request) → 주방 처리(Process) → 서빙(Response)",
+        goals: [
+            "웹의 요청/응답 구조와 HTTP 메서드(GET/POST) 이해",
+            "Flask 라우팅과 템플릿 렌더링 기초",
+            "개발 서버 실행 및 로컬/맥 환경에서 호스팅 기초"
+        ],
+        content: [
+            "@app.route('/')로 페이지 라우팅 구성",
+            "form 입력값을 서버에서 받아 결과 반환",
+            "requirements.txt, 가상환경, 실행 명령 관리"
+        ],
+        mission: "사용자 이름을 입력하면 환영 문구를 보여주는 Flask 페이지 만들기"
+    },
+    {
+        title: "4주차: 랜덤 포레스트, 나무가 모여 이룬 숲",
+        stage: "2단계 · 머신러닝 & 딥러닝 핵심",
+        duration: "약 20분",
+        visual: "여러 의사결정나무가 예측 후 다수결로 최종 결론을 내리는 앙상블 이미지",
+        goals: [
+            "Decision Tree의 분할 기준(Gini, Entropy) 개념 이해",
+            "RandomForest 분류기 학습/평가 실습",
+            "AdaBoost 부스팅 방식의 직관적 차이 파악"
+        ],
+        content: [
+            "훈련/검증 데이터 분리와 과적합 기본 개념",
+            "sklearn으로 모델 학습 후 accuracy 측정",
+            "특성 중요도(feature importance)로 해석 가능성 확인"
+        ],
+        mission: "Iris 또는 타이타닉 데이터로 랜덤 포레스트 모델 정확도 비교하기"
+    },
+    {
+        title: "5주차: 신경망, 뇌 세포의 모방",
+        stage: "2단계 · 머신러닝 & 딥러닝 핵심",
+        duration: "약 20분",
+        visual: "입력층-은닉층-출력층 연결선의 가중치가 학습 중 변하는 도식",
+        goals: [
+            "퍼셉트론과 다층 신경망(MLP) 구조 이해",
+            "활성화 함수(ReLU, Sigmoid) 차이 학습",
+            "오차역전파(backpropagation)의 핵심 아이디어 파악"
+        ],
+        content: [
+            "손실함수와 경사하강법(learning rate) 개념",
+            "간단한 숫자 분류 예제로 MLP 훈련 흐름 확인",
+            "에폭(epoch)에 따른 성능 변화 그래프 읽기"
+        ],
+        mission: "MNIST 샘플로 1개 은닉층 MLP를 학습하고 정확도 기록하기"
+    },
+    {
+        title: "6주차: CNN & RNN, 데이터의 특징과 기억",
+        stage: "2단계 · 머신러닝 & 딥러닝 핵심",
+        duration: "약 20분",
+        visual: "CNN은 필터가 이미지를 훑고, RNN은 순차 데이터가 루프를 도는 흐름",
+        goals: [
+            "CNN의 합성곱/풀링으로 이미지 특징 추출 원리 이해",
+            "RNN/LSTM의 순차 데이터 처리 구조 파악",
+            "적용 영역: 이미지 분류 vs 시계열/문장 처리 구분"
+        ],
+        content: [
+            "커널, 스트라이드, 특성맵(feature map) 기초",
+            "RNN의 기울기 소실 문제와 LSTM 등장 배경",
+            "실무에서 RNN을 대체하는 Transformer 흐름 예고"
+        ],
+        mission: "간단한 이미지 분류와 시계열 예측 예제의 입력 형태 차이 설명하기"
+    },
+    {
+        title: "7주차: Transformer, 문장 속 관계 찾기",
+        stage: "3단계 · NLP 및 최신 LLM 프로세스",
+        duration: "약 20분",
+        visual: "문장 단어들이 서로를 가리키며 중요도를 계산하는 Self-Attention 맵",
+        goals: [
+            "Self-Attention과 Query/Key/Value 개념 이해",
+            "Transformer 인코더/디코더 구조 큰 그림 학습",
+            "병렬 처리 장점이 기존 RNN 대비 왜 중요한지 파악"
+        ],
+        content: [
+            "토큰화와 위치 인코딩(positional encoding)",
+            "멀티헤드 어텐션이 다양한 관계를 동시에 포착하는 방식",
+            "현대 LLM의 기반이 되는 구조적 핵심 정리"
+        ],
+        mission: "짧은 문장 예제로 단어 간 어텐션 관계를 말로 설명하기"
+    },
+    {
+        title: "8주차: LLM의 탄생 (GPT & Gemini)",
+        stage: "3단계 · NLP 및 최신 LLM 프로세스",
+        duration: "약 20분",
+        visual: "대규모 사전학습과 작업 특화 미세조정 과정을 대비한 이중 파이프라인",
+        goals: [
+            "사전학습(Pre-training)과 미세조정(Fine-tuning) 차이 이해",
+            "RLHF(인간 피드백 기반 강화학습) 목적 파악",
+            "현대 LLM 생태계(폐쇄형/오픈형 모델)의 특징 비교"
+        ],
+        content: [
+            "토큰 예측 기반 학습 원리",
+            "지시 따르기 능력 향상을 위한 SFT와 RLHF 단계",
+            "모델 선택 시 비용, 속도, 품질, 보안 고려사항"
+        ],
+        mission: "업무 시나리오를 정하고 어떤 LLM 계열이 적합한지 근거와 함께 제시하기"
+    },
+    {
+        title: "9주차: API 활용과 프롬프트 엔지니어링",
+        stage: "3단계 · NLP 및 최신 LLM 프로세스",
+        duration: "약 20분",
+        visual: "프롬프트가 모델을 통과해 정제된 답변으로 나오는 깔때기 모형",
+        goals: [
+            "OpenAI/Gemini API 호출 기본 흐름 이해",
+            "시스템/유저 프롬프트 분리와 페르소나 설계",
+            "출력 품질을 높이는 제약조건·예시 기반 프롬프트 기법 습득"
+        ],
+        content: [
+            "API 키 관리, 요청/응답 JSON 구조",
+            "temperature, max_tokens 등 주요 파라미터 영향",
+            "실패 케이스 개선: 모호한 질문 → 구조화된 지시"
+        ],
+        mission: "동일 작업에 대해 일반 프롬프트와 개선 프롬프트를 비교 실험하기"
+    },
+    {
+        title: "10주차: GitHub, 코드의 타임머신",
+        stage: "4단계 · 서비스 완성 및 클라우드",
+        duration: "약 20분",
+        visual: "브랜치가 뻗고 다시 머지되는 버전 관리 흐름도",
+        goals: [
+            "git add/commit/push/pull 기본 명령어 실습",
+            "branch, merge, pull request 협업 흐름 이해",
+            "정적 페이지 배포를 위한 저장소 구조 정리"
+        ],
+        content: [
+            "커밋 메시지 규칙과 변경 이력 관리",
+            "충돌(conflict) 발생 시 해결 기본 절차",
+            "GitHub Pages를 통한 문서/강의자료 공개 방식"
+        ],
+        mission: "새 브랜치에서 index.html 수정 후 PR 시뮬레이션 진행하기"
+    },
+    {
+        title: "11주차: AI 서비스 구현 (Vibe Coding)",
+        stage: "4단계 · 서비스 완성 및 클라우드",
+        duration: "약 20분",
+        visual: "기획서에서 코드·UI·AI 응답까지 연결되는 MVP 구성도",
+        goals: [
+            "문제정의 → 사용자 시나리오 → MVP 기능 우선순위 도출",
+            "Flask 백엔드와 AI API를 결합해 챗 인터페이스 구현",
+            "로그/오류 처리 및 기본 보안(키 노출 방지) 점검"
+        ],
+        content: [
+            "입력창, 대화 리스트, 응답 로딩 UX 구현",
+            "백엔드에서 API 호출 후 프론트로 JSON 반환",
+            "짧은 반복 개발(빌드-테스트-개선) 루프 실습"
+        ],
+        mission: "질문-답변이 실제로 동작하는 챗봇 MVP를 완성해 데모하기"
+    },
+    {
+        title: "12주차: 클라우드 배포, 세상을 향한 서비스",
+        stage: "4단계 · 서비스 완성 및 클라우드",
+        duration: "약 20분",
+        visual: "로컬 서비스가 클라우드로 올라가 전 세계에서 접속되는 연결도",
+        goals: [
+            "클라우드 인스턴스/플랫폼 배포 기본 절차 이해",
+            "환경변수, 도메인, HTTPS 적용의 필요성 학습",
+            "최종 프로젝트 발표 구조(문제-해결-데모-회고) 완성"
+        ],
+        content: [
+            "배포 체크리스트: 의존성, 포트, 로그, 재시작 정책",
+            "서비스 모니터링 기초와 장애 대응 관점",
+            "포트폴리오화: README, 데모 영상, 발표자료 정리"
+        ],
+        mission: "최종 프로젝트 URL과 발표 슬라이드를 준비해 데모데이 발표하기"
+    }
+];
 
-    <div class="footer-nav">
-        <button disabled>이전 페이지</button>
-        <button>다음 페이지</button>
-    </div>
-</div>
+let currentIndex = 0;
+const lectureList = document.getElementById("lectureList");
+const slideContainer = document.getElementById("slideContainer");
+const progressText = document.getElementById("progressText");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
+function renderLectureList() {
+    lectureList.innerHTML = "";
+    lectures.forEach((lecture, index) => {
+        const li = document.createElement("li");
+        const button = document.createElement("button");
+        button.className = "lecture-btn";
+        button.textContent = `${index + 1}. ${lecture.title}`;
+        button.addEventListener("click", () => {
+            currentIndex = index;
+            render();
+        });
+        li.appendChild(button);
+        lectureList.appendChild(li);
+    });
+}
+
+function render() {
+    const lecture = lectures[currentIndex];
+    const goals = lecture.goals.map(item => `<li>${item}</li>`).join("");
+    const content = lecture.content.map(item => `<li>${item}</li>`).join("");
+
+    slideContainer.innerHTML = `
+        <div class="badge">${lecture.stage}</div>
+        <h2>${lecture.title}</h2>
+        <div class="meta">
+            <span>⏱ ${lecture.duration}</span>
+            <span>📌 강의 자료 페이지 형식</span>
+        </div>
+
+        <section class="section">
+            <h3>비주얼 콘셉트</h3>
+            <ul><li>${lecture.visual}</li></ul>
+        </section>
+
+        <section class="section">
+            <h3>학습 목표</h3>
+            <ul>${goals}</ul>
+        </section>
+
+        <section class="section">
+            <h3>20분 강의 구성 콘텐츠</h3>
+            <ul>${content}</ul>
+        </section>
+
+        <section class="section">
+            <h3>실습 미션 (과제)</h3>
+            <ul><li>${lecture.mission}</li></ul>
+        </section>
+    `;
+
+    [...document.querySelectorAll(".lecture-btn")].forEach((btn, index) => {
+        btn.classList.toggle("active", index === currentIndex);
+    });
+
+    progressText.textContent = `${currentIndex + 1} / ${lectures.length} 페이지`;
+
+    prevBtn.disabled = currentIndex === 0;
+    if (currentIndex === 0) {
+        prevBtn.textContent = "이전 강의";
+        nextBtn.textContent = "다음";
+    } else {
+        prevBtn.textContent = "이전 강의";
+        nextBtn.textContent = currentIndex === lectures.length - 1 ? "마침" : "다음 강의";
+    }
+
+    nextBtn.disabled = currentIndex === lectures.length - 1;
+}
+
+prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+        currentIndex -= 1;
+        render();
+    }
+});
+
+nextBtn.addEventListener("click", () => {
+    if (currentIndex < lectures.length - 1) {
+        currentIndex += 1;
+        render();
+    }
+});
+
+renderLectureList();
+render();
+</script>
 </body>
 </html>
