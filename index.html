@@ -1,635 +1,382 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI 서비스 개발 12주 커리큘럼</title>
 <style>
 :root {
-    --bg: #f3f6fb;
-    --card: #ffffff;
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --text: #111827;
-    --muted: #6b7280;
-    --line: #e5e7eb;
-    --sidebar: #0f172a;
-    --sidebar-muted: #94a3b8;
-    --sidebar-active: #1e293b;
+  --bg: #f3f6fb;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --sidebar: #0f172a;
+  --sidebar-muted: #94a3b8;
+  --sidebar-active: #1e293b;
 }
-
 * { box-sizing: border-box; }
-
 body {
-    margin: 0;
-    font-family: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
+  margin: 0;
+  font-family: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
 }
-
 .sidebar {
-    width: 320px;
-    background: var(--sidebar);
-    color: white;
-    padding: 24px 16px;
-    border-right: 1px solid #0b1220;
-    overflow-y: auto;
+  width: 320px;
+  background: var(--sidebar);
+  color: white;
+  padding: 24px 16px;
+  border-right: 1px solid #0b1220;
+  overflow-y: auto;
 }
-
-.sidebar h1 {
-    font-size: 20px;
-    margin: 0 0 6px;
-}
-
-.sidebar p {
-    margin: 0 0 18px;
-    color: var(--sidebar-muted);
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.lecture-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 8px;
-}
-
+.sidebar h1 { font-size: 20px; margin: 0 0 6px; }
+.sidebar p { margin: 0 0 18px; color: var(--sidebar-muted); font-size: 13px; line-height: 1.5; }
+.lecture-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .lecture-btn {
-    width: 100%;
-    background: transparent;
-    color: var(--sidebar-muted);
-    border: 1px solid transparent;
-    text-align: left;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 1.35;
+  width: 100%; background: transparent; color: var(--sidebar-muted); border: 1px solid transparent;
+  text-align: left; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 14px; line-height: 1.35;
 }
-
-.lecture-btn:hover,
-.lecture-btn.active {
-    color: white;
-    background: var(--sidebar-active);
-    border-color: #334155;
-}
-
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-
+.lecture-btn:hover, .lecture-btn.active { color: white; background: var(--sidebar-active); border-color: #334155; }
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .topbar {
-    padding: 18px 28px;
-    border-bottom: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(4px);
+  padding: 18px 28px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(4px);
 }
-
-.progress {
-    font-size: 14px;
-    color: var(--muted);
-}
-
-.content-wrap {
-    flex: 1;
-    overflow-y: auto;
-    padding: 28px;
-}
-
+.progress { font-size: 14px; color: var(--muted); }
+.content-wrap { flex: 1; overflow-y: auto; padding: 28px; }
 .slide {
-    max-width: 980px;
-    margin: 0 auto;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07);
-    padding: 30px;
+  max-width: 980px; margin: 0 auto; background: var(--card); border: 1px solid var(--line);
+  border-radius: 18px; box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07); padding: 30px;
 }
-
-.badge {
-    display: inline-block;
-    background: #dbeafe;
-    color: #1e3a8a;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 10px;
-    border-radius: 999px;
-    margin-bottom: 12px;
+.slide h1, .slide h2, .slide h3 { margin-top: 18px; margin-bottom: 10px; }
+.slide h1 { font-size: 30px; margin-top: 0; }
+.slide h2 { font-size: 24px; }
+.slide h3 { font-size: 20px; }
+.slide p, .slide li { line-height: 1.7; }
+.slide pre {
+  background: #0b1220; color: #e2e8f0; padding: 14px; border-radius: 10px; overflow-x: auto;
 }
-
-.slide h2 {
-    margin: 0 0 10px;
-    font-size: 28px;
+.slide code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.slide table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+.slide th, .slide td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.slide blockquote {
+  margin: 12px 0; border-left: 4px solid var(--primary); padding: 8px 12px; background: #eff6ff; color: #1e3a8a;
 }
-
-.meta {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 18px;
-}
-
-.section {
-    margin: 18px 0;
-}
-
-.section h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-}
-
-.section ul {
-    margin: 0;
-    padding-left: 22px;
-    line-height: 1.7;
-}
-
+.status { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
 .footer-nav {
-    border-top: 1px solid var(--line);
-    background: white;
-    padding: 14px 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  border-top: 1px solid var(--line); background: white; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center;
 }
-
 .nav-btn {
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: 1px solid var(--line);
-    background: white;
-    color: var(--text);
-    font-weight: 600;
-    cursor: pointer;
+  padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line);
+  background: white; color: var(--text); font-weight: 600; cursor: pointer;
 }
-
-.nav-btn.primary {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
+.nav-btn.primary { background: var(--primary); color: white; border-color: var(--primary); }
 .nav-btn.primary:hover { background: var(--primary-dark); }
-
-.nav-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
+.nav-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 @media (max-width: 960px) {
-    body { flex-direction: column; }
-    .sidebar { width: 100%; max-height: 300px; }
-    .content-wrap { padding: 16px; }
-    .slide { padding: 20px; }
+  body { flex-direction: column; }
+  .sidebar { width: 100%; max-height: 300px; }
+  .content-wrap { padding: 16px; }
+  .slide { padding: 20px; }
 }
 </style>
 </head>
 <body>
-    <aside class="sidebar">
-        <h1>AI 서비스 개발 12주</h1>
-        <p>코세라 스타일 학습 화면 · 좌측 목차 클릭 시 자동 이동 · 중앙 슬라이드형 강의자료</p>
-        <ul class="lecture-list" id="lectureList"></ul>
-    </aside>
+<aside class="sidebar">
+  <h1>AI 서비스 개발 12주</h1>
+  <p>좌측 목차 클릭 시 자동 이동 · 중앙 슬라이드 Markdown 렌더링 · 하단 이전/다음 탐색</p>
+  <ul class="lecture-list" id="lectureList"></ul>
+</aside>
 
-    <main class="main">
-        <div class="topbar">
-            <div class="progress" id="progressText">1 / 13 페이지</div>
-        </div>
+<main class="main">
+  <div class="topbar">
+    <div class="progress" id="progressText">로딩 중...</div>
+  </div>
 
-        <div class="content-wrap">
-            <article class="slide" id="slideContainer"></article>
-        </div>
+  <div class="content-wrap">
+    <article class="slide" id="slideContainer">
+      <p>강의 자료를 불러오는 중입니다...</p>
+    </article>
+  </div>
 
-        <div class="footer-nav">
-            <button id="prevBtn" class="nav-btn">이전 강의</button>
-            <button id="nextBtn" class="nav-btn primary">다음</button>
-        </div>
-    </main>
+  <div class="footer-nav">
+    <button id="prevBtn" class="nav-btn">이전 강의</button>
+    <button id="nextBtn" class="nav-btn primary">다음</button>
+  </div>
+</main>
 
 <script>
-const lectures = [
-    {
-        title: "오리엔테이션: 12주 로드맵",
-        stage: "전체 안내",
-        duration: "약 20분",
-        visual: "전체 4단계(기초 → ML/DL → LLM → 배포)를 하나의 여정 지도처럼 보여주는 학습맵",
-        goals: [
-            "12주 학습 목표와 산출물(GitHub 정적 페이지 기반 강의자료/프로젝트) 이해",
-            "각 주차 수업 흐름(개념 8분 + 데모 8분 + 실습 미션 4분) 파악",
-            "학습 준비물: Python, VS Code, GitHub 계정, 기본 터미널 사용법 안내"
-        ],
-        content: [
-            "이 과정은 비전공 초급자도 AI 서비스 MVP를 설계·구현·배포할 수 있도록 설계됨",
-            "매주 강의는 짧은 이론 + 즉시 실행 가능한 실습으로 구성",
-            "최종 결과물: AI 기능이 포함된 웹 서비스와 발표 자료"
-        ],
-        mission: "GitHub 저장소 생성 후 index.html 첫 페이지를 커밋해 학습 포트폴리오 시작하기"
-    },
-    {
-        title: "1주차: 컴퓨터 원리/역사 + 파이썬 기초 문법",
-        stage: "1단계 · 개발 기초 및 환경 구축",
-        duration: "약 20분",
-        visual: `
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <div style="color:#6b7280; font-size:13px;">
-              데이터가 <b>변수 상자</b>에 담겨 <b>함수 컨베이어 벨트</b>를 지나 <b>결과</b>로 변환되는 인포그래픽
-            </div>
-    
-            <!-- ✅ 인포그래픽 (자체 포함 SVG: 외부 이미지 URL 없이도 바로 보입니다) -->
-            <div style="border:1px solid #e5e7eb; border-radius:14px; padding:14px; background:#f8fafc;">
-              <svg viewBox="0 0 980 240" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="데이터가 변수 상자에 담겨 함수 컨베이어 벨트를 지나 결과로 변환되는 흐름">
-                <defs>
-                  <style>
-                    .t{font:700 18px Pretendard, sans-serif; fill:#0f172a}
-                    .s{font:500 14px Pretendard, sans-serif; fill:#334155}
-                    .box{fill:#ffffff; stroke:#cbd5e1; stroke-width:2}
-                    .chip{fill:#dbeafe; stroke:#93c5fd; stroke-width:1}
-                    .arrow{stroke:#2563eb; stroke-width:5; marker-end:url(#m)}
-                  </style>
-                  <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-                    <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/>
-                  </marker>
-                </defs>
-    
-                <!-- Input -->
-                <rect x="30" y="70" width="180" height="100" rx="16" class="box"/>
-                <text x="120" y="112" text-anchor="middle" class="t">입력 (Input)</text>
-                <text x="120" y="138" text-anchor="middle" class="s">키보드 · 파일 · 센서</text>
-    
-                <!-- Arrow -->
-                <line x1="215" y1="120" x2="290" y2="120" class="arrow"/>
-    
-                <!-- Variable Box -->
-                <rect x="300" y="50" width="220" height="140" rx="18" class="box"/>
-                <text x="410" y="88" text-anchor="middle" class="t">변수 상자</text>
-                <rect x="330" y="105" width="160" height="32" rx="10" class="chip"/>
-                <text x="410" y="127" text-anchor="middle" class="s">score = 85</text>
-                <rect x="330" y="145" width="160" height="32" rx="10" class="chip"/>
-                <text x="410" y="167" text-anchor="middle" class="s">name = "Tom"</text>
-    
-                <!-- Arrow -->
-                <line x1="525" y1="120" x2="600" y2="120" class="arrow"/>
-    
-                <!-- Function Conveyor -->
-                <rect x="610" y="50" width="250" height="140" rx="18" class="box"/>
-                <text x="735" y="88" text-anchor="middle" class="t">함수 컨베이어</text>
-                <rect x="640" y="105" width="190" height="32" rx="10" class="chip"/>
-                <text x="735" y="127" text-anchor="middle" class="s">if/else 분기</text>
-                <rect x="640" y="145" width="190" height="32" rx="10" class="chip"/>
-                <text x="735" y="167" text-anchor="middle" class="s">def 함수 처리</text>
-    
-                <!-- Arrow -->
-                <line x1="865" y1="120" x2="940" y2="120" class="arrow"/>
-    
-                <!-- Output -->
-                <rect x="950" y="70" width="0" height="0" rx="0" fill="transparent"/>
-                <rect x="880" y="70" width="180" height="100" rx="16" class="box" transform="translate(70,0)"/>
-                <text x="1040" y="112" text-anchor="middle" class="t">출력 (Output)</text>
-                <text x="1040" y="138" text-anchor="middle" class="s">화면 · 파일 · 메시지</text>
-              </svg>
-            </div>
-    
-            <div style="color:#6b7280; font-size:13px;">
-              이 흐름은 <b>컴퓨터(입력·처리·저장·출력)</b>의 원리와 <b>파이썬(변수·조건문·함수)</b>를 연결해 이해하는 데 사용합니다.
-            </div>
-          </div>
-        `,
-        goals: [
-          "컴퓨터의 기본 원리(입력·처리·저장·출력)와 왜 이 구조가 중요한지 이해",
-          "컴퓨터 역사 핵심 키워드 이해: 튜링 머신(계산 모델) → 폰 노이만 구조(프로그램 내장 방식) → 현대 컴퓨팅",
-          "파이썬 문법 기초: 변수/자료형(str,int,float,list), 조건문(if/else), 함수(def) 작성 및 실행 흐름 설명"
-        ],
-        content: [
-          "0~3분) 컴퓨터는 ‘입력 → 처리 → 저장 → 출력’ 구조로 동작한다: 우리가 하는 모든 코딩은 결국 이 흐름을 자동화하는 일",
-          "3~6분) 역사 큰 흐름: 튜링 머신(규칙으로 계산) → 폰 노이만 구조(메모리에 프로그램을 저장) → 현대 컴퓨터(고속 처리/대용량 저장/네트워크)",
-          "6~10분) 변수: 데이터를 담는 ‘이름 붙은 상자’ / 대입(=)은 ‘같다’가 아니라 ‘넣는다’",
-          "10~13분) 자료형: 문자열(str)·정수(int)·실수(float)·리스트(list) / 왜 자료형이 필요한지(연산 방식이 달라짐)",
-          "13~16분) 조건문(if/else): 조건에 따라 다른 길로 분기(프로그램 흐름 제어)",
-          "16~19분) 함수(def): 재사용 가능한 처리 규칙 만들기 / 입력(인자)과 출력(반환값) 이해",
-          "19~20분) 전체 정리: 입력 데이터를 변수에 담고 → 조건문/함수로 처리하고 → 결과를 출력한다"
-        ],
-        mission: `
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <div><b>미션:</b> 학생 점수로 합격/불합격을 출력하는 작은 프로그램 만들기</div>
-    
-            <div style="border:1px solid #e5e7eb; border-radius:12px; padding:12px; background:#0b1220; color:#e5e7eb; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size:13px; overflow:auto;">
-    <pre style="margin:0; white-space:pre;"><code># 1) 변수 만들기
-    name = "Tom"
-    score = 72
-    
-    # 2) 조건문으로 분기 만들기
-    if score >= 60:
-        result = "합격"
-    else:
-        result = "불합격"
-    
-    print(name, result)
-    
-    # 3) 함수로 재사용하기
-    def pass_or_fail(score, cutline=60):
-        if score >= cutline:
-            return "합격"
-        return "불합격"
-    
-    print("점수 85 →", pass_or_fail(85))
-    print("점수 40 →", pass_or_fail(40))</code></pre>
-            </div>
-    
-            <div style="color:#6b7280; font-size:13px;">
-              <b>체크포인트:</b> (1) 변수 2개 이상 사용 (2) if/else 사용 (3) def 함수 1개 이상 작성 (4) print로 결과 출력
-            </div>
-          </div>
-        `
-      },
-    {
-        title: "2주차: HTML/CSS, 눈에 보이는 웹의 구조",
-        stage: "1단계 · 개발 기초 및 환경 구축",
-        duration: "약 20분",
-        visual: "웹페이지를 골격(HTML)과 피부/옷(CSS)으로 분리한 해부도",
-        goals: [
-            "HTML 문서 구조(head, body, semantic tag) 이해",
-            "CSS 선택자, 박스모델, Flexbox 정렬 개념 습득",
-            "실습: 강의 카드 레이아웃을 반응형으로 구성"
-        ],
-        content: [
-            "h1~h3, p, ul/li, a, button 등 핵심 태그 조합",
-            "display:flex, justify-content, align-items로 화면 배치",
-            "모바일 대응을 위한 미디어쿼리 기본 적용"
-        ],
-        mission: "강의 소개 카드 3개를 만들고 hover 효과를 적용해 UI 완성하기"
-    },
-    {
-        title: "3주차: Flask, 서버와 클라이언트의 대화",
-        stage: "1단계 · 개발 기초 및 환경 구축",
-        duration: "약 20분",
-        visual: "식당 비유: 손님의 요청(Request) → 주방 처리(Process) → 서빙(Response)",
-        goals: [
-            "웹의 요청/응답 구조와 HTTP 메서드(GET/POST) 이해",
-            "Flask 라우팅과 템플릿 렌더링 기초",
-            "개발 서버 실행 및 로컬/맥 환경에서 호스팅 기초"
-        ],
-        content: [
-            "@app.route('/')로 페이지 라우팅 구성",
-            "form 입력값을 서버에서 받아 결과 반환",
-            "requirements.txt, 가상환경, 실행 명령 관리"
-        ],
-        mission: "사용자 이름을 입력하면 환영 문구를 보여주는 Flask 페이지 만들기"
-    },
-    {
-        title: "4주차: 랜덤 포레스트, 나무가 모여 이룬 숲",
-        stage: "2단계 · 머신러닝 & 딥러닝 핵심",
-        duration: "약 20분",
-        visual: "여러 의사결정나무가 예측 후 다수결로 최종 결론을 내리는 앙상블 이미지",
-        goals: [
-            "Decision Tree의 분할 기준(Gini, Entropy) 개념 이해",
-            "RandomForest 분류기 학습/평가 실습",
-            "AdaBoost 부스팅 방식의 직관적 차이 파악"
-        ],
-        content: [
-            "훈련/검증 데이터 분리와 과적합 기본 개념",
-            "sklearn으로 모델 학습 후 accuracy 측정",
-            "특성 중요도(feature importance)로 해석 가능성 확인"
-        ],
-        mission: "Iris 또는 타이타닉 데이터로 랜덤 포레스트 모델 정확도 비교하기"
-    },
-    {
-        title: "5주차: 신경망, 뇌 세포의 모방",
-        stage: "2단계 · 머신러닝 & 딥러닝 핵심",
-        duration: "약 20분",
-        visual: "입력층-은닉층-출력층 연결선의 가중치가 학습 중 변하는 도식",
-        goals: [
-            "퍼셉트론과 다층 신경망(MLP) 구조 이해",
-            "활성화 함수(ReLU, Sigmoid) 차이 학습",
-            "오차역전파(backpropagation)의 핵심 아이디어 파악"
-        ],
-        content: [
-            "손실함수와 경사하강법(learning rate) 개념",
-            "간단한 숫자 분류 예제로 MLP 훈련 흐름 확인",
-            "에폭(epoch)에 따른 성능 변화 그래프 읽기"
-        ],
-        mission: "MNIST 샘플로 1개 은닉층 MLP를 학습하고 정확도 기록하기"
-    },
-    {
-        title: "6주차: CNN & RNN, 데이터의 특징과 기억",
-        stage: "2단계 · 머신러닝 & 딥러닝 핵심",
-        duration: "약 20분",
-        visual: "CNN은 필터가 이미지를 훑고, RNN은 순차 데이터가 루프를 도는 흐름",
-        goals: [
-            "CNN의 합성곱/풀링으로 이미지 특징 추출 원리 이해",
-            "RNN/LSTM의 순차 데이터 처리 구조 파악",
-            "적용 영역: 이미지 분류 vs 시계열/문장 처리 구분"
-        ],
-        content: [
-            "커널, 스트라이드, 특성맵(feature map) 기초",
-            "RNN의 기울기 소실 문제와 LSTM 등장 배경",
-            "실무에서 RNN을 대체하는 Transformer 흐름 예고"
-        ],
-        mission: "간단한 이미지 분류와 시계열 예측 예제의 입력 형태 차이 설명하기"
-    },
-    {
-        title: "7주차: Transformer, 문장 속 관계 찾기",
-        stage: "3단계 · NLP 및 최신 LLM 프로세스",
-        duration: "약 20분",
-        visual: "문장 단어들이 서로를 가리키며 중요도를 계산하는 Self-Attention 맵",
-        goals: [
-            "Self-Attention과 Query/Key/Value 개념 이해",
-            "Transformer 인코더/디코더 구조 큰 그림 학습",
-            "병렬 처리 장점이 기존 RNN 대비 왜 중요한지 파악"
-        ],
-        content: [
-            "토큰화와 위치 인코딩(positional encoding)",
-            "멀티헤드 어텐션이 다양한 관계를 동시에 포착하는 방식",
-            "현대 LLM의 기반이 되는 구조적 핵심 정리"
-        ],
-        mission: "짧은 문장 예제로 단어 간 어텐션 관계를 말로 설명하기"
-    },
-    {
-        title: "8주차: LLM의 탄생 (GPT & Gemini)",
-        stage: "3단계 · NLP 및 최신 LLM 프로세스",
-        duration: "약 20분",
-        visual: "대규모 사전학습과 작업 특화 미세조정 과정을 대비한 이중 파이프라인",
-        goals: [
-            "사전학습(Pre-training)과 미세조정(Fine-tuning) 차이 이해",
-            "RLHF(인간 피드백 기반 강화학습) 목적 파악",
-            "현대 LLM 생태계(폐쇄형/오픈형 모델)의 특징 비교"
-        ],
-        content: [
-            "토큰 예측 기반 학습 원리",
-            "지시 따르기 능력 향상을 위한 SFT와 RLHF 단계",
-            "모델 선택 시 비용, 속도, 품질, 보안 고려사항"
-        ],
-        mission: "업무 시나리오를 정하고 어떤 LLM 계열이 적합한지 근거와 함께 제시하기"
-    },
-    {
-        title: "9주차: API 활용과 프롬프트 엔지니어링",
-        stage: "3단계 · NLP 및 최신 LLM 프로세스",
-        duration: "약 20분",
-        visual: "프롬프트가 모델을 통과해 정제된 답변으로 나오는 깔때기 모형",
-        goals: [
-            "OpenAI/Gemini API 호출 기본 흐름 이해",
-            "시스템/유저 프롬프트 분리와 페르소나 설계",
-            "출력 품질을 높이는 제약조건·예시 기반 프롬프트 기법 습득"
-        ],
-        content: [
-            "API 키 관리, 요청/응답 JSON 구조",
-            "temperature, max_tokens 등 주요 파라미터 영향",
-            "실패 케이스 개선: 모호한 질문 → 구조화된 지시"
-        ],
-        mission: "동일 작업에 대해 일반 프롬프트와 개선 프롬프트를 비교 실험하기"
-    },
-    {
-        title: "10주차: GitHub, 코드의 타임머신",
-        stage: "4단계 · 서비스 완성 및 클라우드",
-        duration: "약 20분",
-        visual: "브랜치가 뻗고 다시 머지되는 버전 관리 흐름도",
-        goals: [
-            "git add/commit/push/pull 기본 명령어 실습",
-            "branch, merge, pull request 협업 흐름 이해",
-            "정적 페이지 배포를 위한 저장소 구조 정리"
-        ],
-        content: [
-            "커밋 메시지 규칙과 변경 이력 관리",
-            "충돌(conflict) 발생 시 해결 기본 절차",
-            "GitHub Pages를 통한 문서/강의자료 공개 방식"
-        ],
-        mission: "새 브랜치에서 index.html 수정 후 PR 시뮬레이션 진행하기"
-    },
-    {
-        title: "11주차: AI 서비스 구현 (Vibe Coding)",
-        stage: "4단계 · 서비스 완성 및 클라우드",
-        duration: "약 20분",
-        visual: "기획서에서 코드·UI·AI 응답까지 연결되는 MVP 구성도",
-        goals: [
-            "문제정의 → 사용자 시나리오 → MVP 기능 우선순위 도출",
-            "Flask 백엔드와 AI API를 결합해 챗 인터페이스 구현",
-            "로그/오류 처리 및 기본 보안(키 노출 방지) 점검"
-        ],
-        content: [
-            "입력창, 대화 리스트, 응답 로딩 UX 구현",
-            "백엔드에서 API 호출 후 프론트로 JSON 반환",
-            "짧은 반복 개발(빌드-테스트-개선) 루프 실습"
-        ],
-        mission: "질문-답변이 실제로 동작하는 챗봇 MVP를 완성해 데모하기"
-    },
-    {
-        title: "12주차: 클라우드 배포, 세상을 향한 서비스",
-        stage: "4단계 · 서비스 완성 및 클라우드",
-        duration: "약 20분",
-        visual: "로컬 서비스가 클라우드로 올라가 전 세계에서 접속되는 연결도",
-        goals: [
-            "클라우드 인스턴스/플랫폼 배포 기본 절차 이해",
-            "환경변수, 도메인, HTTPS 적용의 필요성 학습",
-            "최종 프로젝트 발표 구조(문제-해결-데모-회고) 완성"
-        ],
-        content: [
-            "배포 체크리스트: 의존성, 포트, 로그, 재시작 정책",
-            "서비스 모니터링 기초와 장애 대응 관점",
-            "포트폴리오화: README, 데모 영상, 발표자료 정리"
-        ],
-        mission: "최종 프로젝트 URL과 발표 슬라이드를 준비해 데모데이 발표하기"
-    }
-];
+const totalWeeks = 12;
+const lectureFiles = Array.from({ length: totalWeeks }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return {
+    id: i,
+    title: `Week ${n}`,
+    path: `curriculum/week${n}.md`
+  };
+});
 
-let currentIndex = 0;
 const lectureList = document.getElementById("lectureList");
 const slideContainer = document.getElementById("slideContainer");
 const progressText = document.getElementById("progressText");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-function renderLectureList() {
-    lectureList.innerHTML = "";
-    lectures.forEach((lecture, index) => {
-        const li = document.createElement("li");
-        const button = document.createElement("button");
-        button.className = "lecture-btn";
-        button.textContent = `${index + 1}. ${lecture.title}`;
-        button.addEventListener("click", () => {
-            currentIndex = index;
-            render();
-        });
-        li.appendChild(button);
-        lectureList.appendChild(li);
-    });
+const mdCache = new Map();
+let currentIndex = 0;
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
-function render() {
-    const lecture = lectures[currentIndex];
-    const goals = lecture.goals.map(item => `<li>${item}</li>`).join("");
-    const content = lecture.content.map(item => `<li>${item}</li>`).join("");
+function inlineMarkdown(text) {
+  return text
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+}
 
-    slideContainer.innerHTML = `
-        <div class="badge">${lecture.stage}</div>
-        <h2>${lecture.title}</h2>
-        <div class="meta">
-            <span>⏱ ${lecture.duration}</span>
-            <span>📌 강의 자료 페이지 형식</span>
-        </div>
+function markdownToHtml(md) {
+  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  const html = [];
+  let inCode = false;
+  let inUl = false;
+  let inOl = false;
+  let inTable = false;
+  let inBlockquote = false;
 
-        <section class="section">
-            <h3>비주얼 콘셉트</h3>
-            <ul><li>${lecture.visual}</li></ul>
-        </section>
+  const closeAllLists = () => {
+    if (inUl) { html.push("</ul>"); inUl = false; }
+    if (inOl) { html.push("</ol>"); inOl = false; }
+  };
 
-        <section class="section">
-            <h3>학습 목표</h3>
-            <ul>${goals}</ul>
-        </section>
+  const closeTable = () => {
+    if (inTable) {
+      html.push("</tbody></table>");
+      inTable = false;
+    }
+  };
 
-        <section class="section">
-            <h3>20분 강의 구성 콘텐츠</h3>
-            <ul>${content}</ul>
-        </section>
+  const closeBlockquote = () => {
+    if (inBlockquote) {
+      html.push("</blockquote>");
+      inBlockquote = false;
+    }
+  };
 
-        <section class="section">
-            <h3>실습 미션 (과제)</h3>
-            <ul><li>${lecture.mission}</li></ul>
-        </section>
-    `;
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    const line = raw.trim();
 
-    [...document.querySelectorAll(".lecture-btn")].forEach((btn, index) => {
-        btn.classList.toggle("active", index === currentIndex);
-    });
-
-    progressText.textContent = `${currentIndex + 1} / ${lectures.length} 페이지`;
-
-    prevBtn.disabled = currentIndex === 0;
-    if (currentIndex === 0) {
-        prevBtn.textContent = "이전 강의";
-        nextBtn.textContent = "다음";
-    } else {
-        prevBtn.textContent = "이전 강의";
-        nextBtn.textContent = currentIndex === lectures.length - 1 ? "마침" : "다음 강의";
+    if (line.startsWith("```")) {
+      closeAllLists();
+      closeTable();
+      closeBlockquote();
+      if (!inCode) {
+        inCode = true;
+        html.push("<pre><code>");
+      } else {
+        inCode = false;
+        html.push("</code></pre>");
+      }
+      continue;
     }
 
-    nextBtn.disabled = currentIndex === lectures.length - 1;
+    if (inCode) {
+      html.push(`${escapeHtml(raw)}\n`);
+      continue;
+    }
+
+    if (!line) {
+      closeAllLists();
+      closeBlockquote();
+      if (!inTable) html.push("");
+      continue;
+    }
+
+    if (line === "---") {
+      closeAllLists();
+      closeTable();
+      closeBlockquote();
+      html.push("<hr />");
+      continue;
+    }
+
+    if (/^>\s+/.test(line)) {
+      closeAllLists();
+      closeTable();
+      if (!inBlockquote) {
+        html.push("<blockquote>");
+        inBlockquote = true;
+      }
+      html.push(`<p>${inlineMarkdown(escapeHtml(line.replace(/^>\s+/, "")))}</p>`);
+      continue;
+    } else {
+      closeBlockquote();
+    }
+
+    if (/^\|.+\|$/.test(line)) {
+      closeAllLists();
+      const cols = line.split("|").slice(1, -1).map(c => inlineMarkdown(escapeHtml(c.trim())));
+      const next = lines[i + 1] ? lines[i + 1].trim() : "";
+      const isSeparator = /^\|?\s*[:-]-+/.test(next);
+
+      if (!inTable) {
+        inTable = true;
+        html.push("<table>");
+      }
+
+      if (isSeparator) {
+        html.push(`<thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>`);
+        i += 1;
+      } else {
+        html.push(`<tr>${cols.map(c => `<td>${c}</td>`).join("")}</tr>`);
+      }
+      continue;
+    } else {
+      closeTable();
+    }
+
+    const heading = line.match(/^(#{1,6})\s+(.*)$/);
+    if (heading) {
+      closeAllLists();
+      const level = heading[1].length;
+      const text = inlineMarkdown(escapeHtml(heading[2]));
+      html.push(`<h${level}>${text}</h${level}>`);
+      continue;
+    }
+
+    const ul = line.match(/^[-*]\s+(.*)$/);
+    if (ul) {
+      if (!inUl) {
+        closeTable();
+        if (inOl) { html.push("</ol>"); inOl = false; }
+        html.push("<ul>");
+        inUl = true;
+      }
+      html.push(`<li>${inlineMarkdown(escapeHtml(ul[1]))}</li>`);
+      continue;
+    }
+
+    const ol = line.match(/^\d+\.\s+(.*)$/);
+    if (ol) {
+      if (!inOl) {
+        closeTable();
+        if (inUl) { html.push("</ul>"); inUl = false; }
+        html.push("<ol>");
+        inOl = true;
+      }
+      html.push(`<li>${inlineMarkdown(escapeHtml(ol[1]))}</li>`);
+      continue;
+    }
+
+    closeAllLists();
+    html.push(`<p>${inlineMarkdown(escapeHtml(line))}</p>`);
+  }
+
+  if (inCode) html.push("</code></pre>");
+  closeAllLists();
+  closeTable();
+  closeBlockquote();
+  return html.join("\n");
+}
+
+async function fetchMarkdown(index) {
+  if (mdCache.has(index)) return mdCache.get(index);
+  const file = lectureFiles[index];
+  const res = await fetch(file.path, { cache: "no-store" });
+  if (!res.ok) throw new Error(`파일 로드 실패: ${file.path}`);
+  const text = await res.text();
+  mdCache.set(index, text);
+  return text;
+}
+
+function extractTitle(md, fallback) {
+  const firstHeading = md.match(/^#\s+(.+)$/m);
+  return firstHeading ? firstHeading[1].trim() : fallback;
+}
+
+async function preloadTitles() {
+  const jobs = lectureFiles.map(async (item, index) => {
+    try {
+      const md = await fetchMarkdown(index);
+      item.title = extractTitle(md, item.title);
+    } catch {
+      item.title = `${item.title} (로드 실패)`;
+    }
+  });
+  await Promise.all(jobs);
+}
+
+function renderLectureList() {
+  lectureList.innerHTML = "";
+  lectureFiles.forEach((lecture, index) => {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.className = "lecture-btn";
+    button.textContent = `${index + 1}. ${lecture.title}`;
+    button.addEventListener("click", () => {
+      currentIndex = index;
+      render();
+    });
+    li.appendChild(button);
+    lectureList.appendChild(li);
+  });
+}
+
+async function render() {
+  prevBtn.disabled = true;
+  nextBtn.disabled = true;
+  progressText.textContent = `${currentIndex + 1} / ${lectureFiles.length} 페이지 로딩 중...`;
+  slideContainer.innerHTML = `<p class="status">강의 자료를 불러오는 중입니다...</p>`;
+
+  try {
+    const md = await fetchMarkdown(currentIndex);
+    slideContainer.innerHTML = markdownToHtml(md);
+  } catch (error) {
+    slideContainer.innerHTML = `
+      <h2>강의 로딩 오류</h2>
+      <p>${error.message}</p>
+      <p>파일 경로를 확인하세요: <code>${lectureFiles[currentIndex].path}</code></p>
+    `;
+  }
+
+  [...document.querySelectorAll(".lecture-btn")].forEach((btn, index) => {
+    btn.classList.toggle("active", index === currentIndex);
+  });
+
+  progressText.textContent = `${currentIndex + 1} / ${lectureFiles.length} 페이지`;
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === lectureFiles.length - 1;
+  nextBtn.textContent = currentIndex === lectureFiles.length - 1 ? "마침" : (currentIndex === 0 ? "다음" : "다음 강의");
 }
 
 prevBtn.addEventListener("click", () => {
-    if (currentIndex > 0) {
-        currentIndex -= 1;
-        render();
-    }
+  if (currentIndex > 0) {
+    currentIndex -= 1;
+    render();
+  }
 });
 
 nextBtn.addEventListener("click", () => {
-    if (currentIndex < lectures.length - 1) {
-        currentIndex += 1;
-        render();
-    }
+  if (currentIndex < lectureFiles.length - 1) {
+    currentIndex += 1;
+    render();
+  }
 });
 
-renderLectureList();
-render();
+(async function init() {
+  await preloadTitles();
+  renderLectureList();
+  render();
+})();
 </script>
 </body>
 </html>
