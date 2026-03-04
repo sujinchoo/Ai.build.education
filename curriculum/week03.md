@@ -6,7 +6,19 @@
 ---
 
 ## 비주얼 콘셉트
-사용자 요청(Request) → 서버 처리(Process) → 응답(Response)
+
+### 텍스트 흐름
+브라우저 요청(Request) → Flask 라우팅 → 서버 로직 처리 → HTML/JSON 응답(Response)
+
+### 그림
+```mermaid
+sequenceDiagram
+    participant U as 사용자(브라우저)
+    participant S as Flask 서버
+    U->>S: GET /welcome/Alex
+    S->>S: 라우트 매칭 + 함수 실행
+    S-->>U: HTML 또는 JSON 응답
+```
 
 ---
 

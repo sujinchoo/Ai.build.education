@@ -6,7 +6,18 @@ Self-Attention 중심으로 Transformer의 핵심 개념을 학습한다.
 ---
 
 ## 비주얼 콘셉트
-문장 속 단어들이 서로의 중요도를 계산하는 Attention 맵
+
+### 텍스트 흐름
+입력 토큰 → Q/K/V 생성 → Self-Attention 점수 계산 → 문맥 반영 표현 출력
+
+### 그림
+```mermaid
+flowchart LR
+    T[입력 토큰] --> QKV[Q / K / V 생성]
+    QKV --> S[Attention Score 계산]
+    S --> C[가중합으로 문맥 반영]
+    C --> O[출력 표현]
+```
 
 ---
 
