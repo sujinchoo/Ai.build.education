@@ -1,74 +1,52 @@
-# Week 07 — Transformer 기초
-
-## 주제
-Self-Attention을 중심으로 Transformer 구조와 장점을 이해한다.
-
----
+# Week 07 — Transformer 기초 확장
 
 ## 학습 목표
-- Q/K/V와 Self-Attention 계산 흐름을 설명할 수 있다.
+- Self-Attention의 Q/K/V 개념을 설명할 수 있다.
 - Multi-Head Attention의 필요성을 설명할 수 있다.
-- RNN 대비 Transformer의 장점을 설명할 수 있다.
+- Transformer가 RNN 대비 갖는 장점을 설명할 수 있다.
 
 ---
 
-## 학습 내용 (목표 연계)
-- **Q/K/V 흐름**: Query는 ‘무엇을 찾는지’, Key는 ‘무엇을 가지고 있는지’, Value는 ‘전달할 정보’로 이해하면 쉽다.
-- **Self-Attention 계산**: 단어 간 관련도를 점수화해 문맥상 중요한 토큰 정보를 더 많이 반영한다.
-- **Multi-Head 필요성**: 하나의 관점이 아닌 여러 관점에서 관계를 동시에 학습해 표현력을 높인다.
-- **초급자 포인트**: Transformer는 순차 처리에 묶이지 않아 병렬 계산에 유리하다는 점이 RNN 대비 큰 장점이다.
+## 1. Transformer가 바꾼 것
+
+Transformer는 순차 처리 중심의 RNN과 달리, 문장 전체를 한 번에 보며 병렬 계산이 가능합니다.
+이 덕분에 학습 속도와 성능이 크게 향상되었습니다.
 
 ---
 
-## 비주얼 콘셉트
-토큰 임베딩 → Q/K/V 생성 → Attention 가중합 → 문맥 반영 표현
+## 2. Self-Attention 이해
 
-### 그림
-```mermaid
-flowchart LR
-    T[Token Embedding] --> QKV[Q K V]
-    QKV --> A[Attention Score]
-    A --> C[Context Mix]
-    C --> O[Output Representation]
-```
+각 단어가 문장 안의 다른 단어들과 얼마나 관련 있는지 계산합니다.
+
+- Query: 지금 내가 찾고 싶은 정보
+- Key: 내가 가진 정보의 특징
+- Value: 실제 전달할 정보
+
+관련도 점수를 기반으로 단어 표현을 갱신합니다.
 
 ---
 
-## 학습 예시 및 코드
-- Self-Attention은 각 토큰이 다른 토큰을 얼마나 참고할지 가중치를 계산한다.
-- Multi-Head는 서로 다른 관점의 관계를 병렬로 학습한다.
-- Transformer는 병렬 처리에 유리해 대규모 학습과 긴 문맥 처리에서 강점을 보인다.
+## 3. Multi-Head Attention
 
-```python
-# 개념 수식
-# Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V
-```
-
-- 최신 LLM은 대부분 Transformer 계열이며, 긴 컨텍스트/효율화를 위한 변형(예: GQA, MoE)이 활발히 쓰인다.
+한 번의 Attention만 쓰면 문맥을 단일 관점으로만 봅니다.
+여러 Head를 사용하면 문법, 의미, 거리 등 다양한 관점을 동시에 학습할 수 있습니다.
 
 ---
 
-## 핵심개념 정리
-- Attention: 중요도 기반 정보 결합
-- Multi-Head: 다양한 관계 학습
-- Transformer: 병렬성 + 확장성
+## 4. Positional Encoding
+
+Transformer는 순서를 직접 처리하지 않기 때문에, 위치 정보를 숫자로 추가해야 합니다.
+이것이 Positional Encoding입니다.
 
 ---
 
-## 실습 미션
-1. 이번 주 학습 목표 3가지를 확인하고, 각 목표를 검증할 수 있는 실습 항목을 최소 1개씩 수행한다.
-2. 실습 과정(입력값, 코드/설정, 실행 결과)을 문서나 노트에 정리한다.
-3. 어려웠던 점 1가지와 다음 주에 개선할 점 1가지를 작성한다.
+## 5. 실습 아이디어
+
+짧은 문장에서 Attention 가중치를 시각화해 어떤 단어가 중요한지 확인합니다.
 
 ---
 
-## 확장 실습
-- Positional Encoding 필요성 정리
-- Encoder-only / Decoder-only 구조 비교
-
----
-
-## 체크리스트
-- [ ] Q/K/V 개념을 설명할 수 있다.
-- [ ] Multi-Head Attention 이유를 설명할 수 있다.
-- [ ] Transformer 장점을 말할 수 있다.
+## 정리
+- Transformer의 핵심은 Self-Attention이다.
+- Multi-Head는 표현력을 높이는 장치다.
+- 병렬 처리 덕분에 대규모 학습에 유리하다.
