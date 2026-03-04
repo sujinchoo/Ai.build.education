@@ -6,7 +6,18 @@
 ---
 
 ## 비주얼 콘셉트
-대규모 사전학습 파이프라인 + 작업 맞춤 미세조정 파이프라인
+
+### 텍스트 흐름
+대규모 사전학습(Pre-training) → 작업별 미세조정(Fine-tuning) → RLHF 정렬 → 서비스 배포
+
+### 그림
+```mermaid
+flowchart LR
+    P[대규모 텍스트 코퍼스] --> PT[Pre-training]
+    PT --> FT[Fine-tuning]
+    FT --> R[RLHF 정렬]
+    R --> S[실서비스 모델]
+```
 
 ---
 

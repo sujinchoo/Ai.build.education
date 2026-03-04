@@ -6,7 +6,28 @@
 ---
 
 ## 비주얼 콘셉트
-이미지 → CNN 특징 추출 / 문장·시계열 → RNN 기억 전달
+
+### 텍스트 흐름
+- 이미지 데이터: 합성곱(CNN) → 특징맵 → 분류
+- 순차 데이터: 시간순 입력(RNN/LSTM) → 상태 전달 → 다음 값 예측
+
+### 그림
+```mermaid
+flowchart LR
+    IMG[이미지] --> CNN[CNN
+Convolution+Pooling]
+    CNN --> CL[이미지 분류]
+```
+
+```mermaid
+flowchart LR
+    X1[x(t1)] --> H1[h1]
+    H1 --> H2[h2]
+    X2[x(t2)] --> H2
+    H2 --> H3[h3]
+    X3[x(t3)] --> H3
+    H3 --> Y[시계열/문장 예측]
+```
 
 ---
 
