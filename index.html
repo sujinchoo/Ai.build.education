@@ -235,22 +235,121 @@ const lectures = [
         mission: "GitHub 저장소 생성 후 index.html 첫 페이지를 커밋해 학습 포트폴리오 시작하기"
     },
     {
-        title: "1주차: 파이썬, 데이터 흐름 이해 + 컴퓨터 원리/역사",
+        title: "1주차: 컴퓨터 원리/역사 + 파이썬 기초 문법",
         stage: "1단계 · 개발 기초 및 환경 구축",
         duration: "약 20분",
-        visual: "데이터가 변수 상자에 담겨 함수 컨베이어 벨트를 지나 결과로 변환되는 인포그래픽",
+        visual: `
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="color:#6b7280; font-size:13px;">
+              데이터가 <b>변수 상자</b>에 담겨 <b>함수 컨베이어 벨트</b>를 지나 <b>결과</b>로 변환되는 인포그래픽
+            </div>
+    
+            <!-- ✅ 인포그래픽 (자체 포함 SVG: 외부 이미지 URL 없이도 바로 보입니다) -->
+            <div style="border:1px solid #e5e7eb; border-radius:14px; padding:14px; background:#f8fafc;">
+              <svg viewBox="0 0 980 240" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="데이터가 변수 상자에 담겨 함수 컨베이어 벨트를 지나 결과로 변환되는 흐름">
+                <defs>
+                  <style>
+                    .t{font:700 18px Pretendard, sans-serif; fill:#0f172a}
+                    .s{font:500 14px Pretendard, sans-serif; fill:#334155}
+                    .box{fill:#ffffff; stroke:#cbd5e1; stroke-width:2}
+                    .chip{fill:#dbeafe; stroke:#93c5fd; stroke-width:1}
+                    .arrow{stroke:#2563eb; stroke-width:5; marker-end:url(#m)}
+                  </style>
+                  <marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                    <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/>
+                  </marker>
+                </defs>
+    
+                <!-- Input -->
+                <rect x="30" y="70" width="180" height="100" rx="16" class="box"/>
+                <text x="120" y="112" text-anchor="middle" class="t">입력 (Input)</text>
+                <text x="120" y="138" text-anchor="middle" class="s">키보드 · 파일 · 센서</text>
+    
+                <!-- Arrow -->
+                <line x1="215" y1="120" x2="290" y2="120" class="arrow"/>
+    
+                <!-- Variable Box -->
+                <rect x="300" y="50" width="220" height="140" rx="18" class="box"/>
+                <text x="410" y="88" text-anchor="middle" class="t">변수 상자</text>
+                <rect x="330" y="105" width="160" height="32" rx="10" class="chip"/>
+                <text x="410" y="127" text-anchor="middle" class="s">score = 85</text>
+                <rect x="330" y="145" width="160" height="32" rx="10" class="chip"/>
+                <text x="410" y="167" text-anchor="middle" class="s">name = "Tom"</text>
+    
+                <!-- Arrow -->
+                <line x1="525" y1="120" x2="600" y2="120" class="arrow"/>
+    
+                <!-- Function Conveyor -->
+                <rect x="610" y="50" width="250" height="140" rx="18" class="box"/>
+                <text x="735" y="88" text-anchor="middle" class="t">함수 컨베이어</text>
+                <rect x="640" y="105" width="190" height="32" rx="10" class="chip"/>
+                <text x="735" y="127" text-anchor="middle" class="s">if/else 분기</text>
+                <rect x="640" y="145" width="190" height="32" rx="10" class="chip"/>
+                <text x="735" y="167" text-anchor="middle" class="s">def 함수 처리</text>
+    
+                <!-- Arrow -->
+                <line x1="865" y1="120" x2="940" y2="120" class="arrow"/>
+    
+                <!-- Output -->
+                <rect x="950" y="70" width="0" height="0" rx="0" fill="transparent"/>
+                <rect x="880" y="70" width="180" height="100" rx="16" class="box" transform="translate(70,0)"/>
+                <text x="1040" y="112" text-anchor="middle" class="t">출력 (Output)</text>
+                <text x="1040" y="138" text-anchor="middle" class="s">화면 · 파일 · 메시지</text>
+              </svg>
+            </div>
+    
+            <div style="color:#6b7280; font-size:13px;">
+              이 흐름은 <b>컴퓨터(입력·처리·저장·출력)</b>의 원리와 <b>파이썬(변수·조건문·함수)</b>를 연결해 이해하는 데 사용합니다.
+            </div>
+          </div>
+        `,
         goals: [
-            "컴퓨터의 기본 원리(입력·처리·저장·출력)와 역사(튜링 머신, 폰 노이만 구조, 현대 컴퓨팅) 이해",
-            "파이썬 문법 기초: 변수, 자료형, 조건문(if/else), 함수(def) 작성",
-            "Pandas로 CSV(엑셀) 데이터를 불러와 표와 간단 시각화까지 수행"
+          "컴퓨터의 기본 원리(입력·처리·저장·출력)와 왜 이 구조가 중요한지 이해",
+          "컴퓨터 역사 핵심 키워드 이해: 튜링 머신(계산 모델) → 폰 노이만 구조(프로그램 내장 방식) → 현대 컴퓨팅",
+          "파이썬 문법 기초: 변수/자료형(str,int,float,list), 조건문(if/else), 함수(def) 작성 및 실행 흐름 설명"
         ],
         content: [
-            "변수 선언, 문자열/숫자/리스트 다루기, 조건문으로 분기 만들기",
-            "def로 재사용 가능한 함수 정의 및 인자/반환값 개념",
-            "pandas.read_csv(), groupby(), plot()으로 데이터 요약 및 차트 확인"
+          "0~3분) 컴퓨터는 ‘입력 → 처리 → 저장 → 출력’ 구조로 동작한다: 우리가 하는 모든 코딩은 결국 이 흐름을 자동화하는 일",
+          "3~6분) 역사 큰 흐름: 튜링 머신(규칙으로 계산) → 폰 노이만 구조(메모리에 프로그램을 저장) → 현대 컴퓨터(고속 처리/대용량 저장/네트워크)",
+          "6~10분) 변수: 데이터를 담는 ‘이름 붙은 상자’ / 대입(=)은 ‘같다’가 아니라 ‘넣는다’",
+          "10~13분) 자료형: 문자열(str)·정수(int)·실수(float)·리스트(list) / 왜 자료형이 필요한지(연산 방식이 달라짐)",
+          "13~16분) 조건문(if/else): 조건에 따라 다른 길로 분기(프로그램 흐름 제어)",
+          "16~19분) 함수(def): 재사용 가능한 처리 규칙 만들기 / 입력(인자)과 출력(반환값) 이해",
+          "19~20분) 전체 정리: 입력 데이터를 변수에 담고 → 조건문/함수로 처리하고 → 결과를 출력한다"
         ],
-        mission: "학생 점수 데이터를 읽어 합격/불합격을 분류하고 막대그래프로 시각화하기"
-    },
+        mission: `
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div><b>미션:</b> 학생 점수로 합격/불합격을 출력하는 작은 프로그램 만들기</div>
+    
+            <div style="border:1px solid #e5e7eb; border-radius:12px; padding:12px; background:#0b1220; color:#e5e7eb; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size:13px; overflow:auto;">
+    <pre style="margin:0; white-space:pre;"><code># 1) 변수 만들기
+    name = "Tom"
+    score = 72
+    
+    # 2) 조건문으로 분기 만들기
+    if score >= 60:
+        result = "합격"
+    else:
+        result = "불합격"
+    
+    print(name, result)
+    
+    # 3) 함수로 재사용하기
+    def pass_or_fail(score, cutline=60):
+        if score >= cutline:
+            return "합격"
+        return "불합격"
+    
+    print("점수 85 →", pass_or_fail(85))
+    print("점수 40 →", pass_or_fail(40))</code></pre>
+            </div>
+    
+            <div style="color:#6b7280; font-size:13px;">
+              <b>체크포인트:</b> (1) 변수 2개 이상 사용 (2) if/else 사용 (3) def 함수 1개 이상 작성 (4) print로 결과 출력
+            </div>
+          </div>
+        `
+      },
     {
         title: "2주차: HTML/CSS, 눈에 보이는 웹의 구조",
         stage: "1단계 · 개발 기초 및 환경 구축",
