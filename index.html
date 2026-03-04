@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI 서비스 개발 12주 커리큘럼</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css" />
 <style>
 :root {
   --bg: #f3f6fb;
@@ -49,7 +50,7 @@ body {
 .progress { font-size: 14px; color: var(--muted); }
 .content-wrap { flex: 1; overflow-y: auto; padding: 28px; }
 .slide {
-  max-width: 980px; margin: 0 auto; background: var(--card); border: 1px solid var(--line);
+  max-width: 1080px; margin: 0 auto; background: var(--card); border: 1px solid var(--line);
   border-radius: 18px; box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07); padding: 30px;
 }
 .slide h1, .slide h2, .slide h3 { margin-top: 18px; margin-bottom: 10px; }
@@ -66,6 +67,12 @@ body {
 .slide blockquote {
   margin: 12px 0; border-left: 4px solid var(--primary); padding: 8px 12px; background: #eff6ff; color: #1e3a8a;
 }
+.callout { border-radius: 12px; padding: 12px 14px; margin: 10px 0; border: 1px solid; }
+.callout-title { font-weight: 700; margin-bottom: 6px; font-size: 13px; letter-spacing: .02em; }
+.callout-note { background: #eff6ff; border-color: #bfdbfe; color: #1e3a8a; }
+.callout-tip { background: #ecfdf5; border-color: #86efac; color: #065f46; }
+.callout-warning { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.callout-important { background: #f5f3ff; border-color: #c4b5fd; color: #5b21b6; }
 .status { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
 .footer-nav {
   border-top: 1px solid var(--line); background: white; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center;
@@ -88,7 +95,7 @@ body {
 <body>
 <aside class="sidebar">
   <h1>AI 서비스 개발 12주</h1>
-  <p>좌측 목차 클릭 시 자동 이동 · 중앙 슬라이드 Markdown 렌더링 · 하단 이전/다음 탐색</p>
+  <p>MD 원본은 유지하고, 빌드 시 HTML로 변환해 Mermaid/코드 하이라이트/목차/콜아웃 UI를 제공합니다.</p>
   <ul class="lecture-list" id="lectureList"></ul>
 </aside>
 
@@ -99,7 +106,7 @@ body {
 
   <div class="content-wrap">
     <article class="slide" id="slideContainer">
-      <p>강의 자료를 불러오는 중입니다...</p>
+      <p>빌드된 강의 자료를 불러오는 중입니다...</p>
     </article>
   </div>
 
@@ -109,274 +116,115 @@ body {
   </div>
 </main>
 
-<script>
-const totalWeeks = 12;
-const lectureFiles = Array.from({ length: totalWeeks }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
-  return {
-    id: i,
-    title: `Week ${n}`,
-    path: `curriculum/week${n}.md`
-  };
-});
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
-const lectureList = document.getElementById("lectureList");
-const slideContainer = document.getElementById("slideContainer");
-const progressText = document.getElementById("progressText");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
+  const lectureList = document.getElementById("lectureList");
+  const slideContainer = document.getElementById("slideContainer");
+  const progressText = document.getElementById("progressText");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
-const mdCache = new Map();
-let currentIndex = 0;
+  const htmlCache = new Map();
+  let lectures = [];
+  let currentIndex = 0;
 
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
+  mermaid.initialize({ startOnLoad: false, securityLevel: "loose" });
 
-function inlineMarkdown(text) {
-  return text
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
-}
-
-function markdownToHtml(md) {
-  const lines = md.replace(/\r\n/g, "\n").split("\n");
-  const html = [];
-  let inCode = false;
-  let inUl = false;
-  let inOl = false;
-  let inTable = false;
-  let inBlockquote = false;
-
-  const closeAllLists = () => {
-    if (inUl) { html.push("</ul>"); inUl = false; }
-    if (inOl) { html.push("</ol>"); inOl = false; }
-  };
-
-  const closeTable = () => {
-    if (inTable) {
-      html.push("</tbody></table>");
-      inTable = false;
+  async function loadManifest() {
+    const response = await fetch("built/manifest.json", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("빌드 산출물이 없습니다. 먼저 `python build_curriculum.py`를 실행하세요.");
     }
-  };
-
-  const closeBlockquote = () => {
-    if (inBlockquote) {
-      html.push("</blockquote>");
-      inBlockquote = false;
-    }
-  };
-
-  for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i];
-    const line = raw.trim();
-
-    if (line.startsWith("```")) {
-      closeAllLists();
-      closeTable();
-      closeBlockquote();
-      if (!inCode) {
-        inCode = true;
-        html.push("<pre><code>");
-      } else {
-        inCode = false;
-        html.push("</code></pre>");
-      }
-      continue;
-    }
-
-    if (inCode) {
-      html.push(`${escapeHtml(raw)}\n`);
-      continue;
-    }
-
-    if (!line) {
-      closeAllLists();
-      closeBlockquote();
-      if (!inTable) html.push("");
-      continue;
-    }
-
-    if (line === "---") {
-      closeAllLists();
-      closeTable();
-      closeBlockquote();
-      html.push("<hr />");
-      continue;
-    }
-
-    if (/^>\s+/.test(line)) {
-      closeAllLists();
-      closeTable();
-      if (!inBlockquote) {
-        html.push("<blockquote>");
-        inBlockquote = true;
-      }
-      html.push(`<p>${inlineMarkdown(escapeHtml(line.replace(/^>\s+/, "")))}</p>`);
-      continue;
-    } else {
-      closeBlockquote();
-    }
-
-    if (/^\|.+\|$/.test(line)) {
-      closeAllLists();
-      const cols = line.split("|").slice(1, -1).map(c => inlineMarkdown(escapeHtml(c.trim())));
-      const next = lines[i + 1] ? lines[i + 1].trim() : "";
-      const isSeparator = /^\|?\s*[:-]-+/.test(next);
-
-      if (!inTable) {
-        inTable = true;
-        html.push("<table>");
-      }
-
-      if (isSeparator) {
-        html.push(`<thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>`);
-        i += 1;
-      } else {
-        html.push(`<tr>${cols.map(c => `<td>${c}</td>`).join("")}</tr>`);
-      }
-      continue;
-    } else {
-      closeTable();
-    }
-
-    const heading = line.match(/^(#{1,6})\s+(.*)$/);
-    if (heading) {
-      closeAllLists();
-      const level = heading[1].length;
-      const text = inlineMarkdown(escapeHtml(heading[2]));
-      html.push(`<h${level}>${text}</h${level}>`);
-      continue;
-    }
-
-    const ul = line.match(/^[-*]\s+(.*)$/);
-    if (ul) {
-      if (!inUl) {
-        closeTable();
-        if (inOl) { html.push("</ol>"); inOl = false; }
-        html.push("<ul>");
-        inUl = true;
-      }
-      html.push(`<li>${inlineMarkdown(escapeHtml(ul[1]))}</li>`);
-      continue;
-    }
-
-    const ol = line.match(/^\d+\.\s+(.*)$/);
-    if (ol) {
-      if (!inOl) {
-        closeTable();
-        if (inUl) { html.push("</ul>"); inUl = false; }
-        html.push("<ol>");
-        inOl = true;
-      }
-      html.push(`<li>${inlineMarkdown(escapeHtml(ol[1]))}</li>`);
-      continue;
-    }
-
-    closeAllLists();
-    html.push(`<p>${inlineMarkdown(escapeHtml(line))}</p>`);
+    const data = await response.json();
+    lectures = data.lectures || [];
   }
 
-  if (inCode) html.push("</code></pre>");
-  closeAllLists();
-  closeTable();
-  closeBlockquote();
-  return html.join("\n");
-}
+  async function fetchLectureHtml(index) {
+    if (htmlCache.has(index)) return htmlCache.get(index);
+    const lecture = lectures[index];
+    const response = await fetch(lecture.html, { cache: "no-store" });
+    if (!response.ok) throw new Error(`파일 로드 실패: ${lecture.html}`);
+    const html = await response.text();
+    htmlCache.set(index, html);
+    return html;
+  }
 
-async function fetchMarkdown(index) {
-  if (mdCache.has(index)) return mdCache.get(index);
-  const file = lectureFiles[index];
-  const res = await fetch(file.path, { cache: "no-store" });
-  if (!res.ok) throw new Error(`파일 로드 실패: ${file.path}`);
-  const text = await res.text();
-  mdCache.set(index, text);
-  return text;
-}
-
-function extractTitle(md, fallback) {
-  const firstHeading = md.match(/^#\s+(.+)$/m);
-  return firstHeading ? firstHeading[1].trim() : fallback;
-}
-
-async function preloadTitles() {
-  const jobs = lectureFiles.map(async (item, index) => {
-    try {
-      const md = await fetchMarkdown(index);
-      item.title = extractTitle(md, item.title);
-    } catch {
-      item.title = `${item.title} (로드 실패)`;
-    }
-  });
-  await Promise.all(jobs);
-}
-
-function renderLectureList() {
-  lectureList.innerHTML = "";
-  lectureFiles.forEach((lecture, index) => {
-    const li = document.createElement("li");
-    const button = document.createElement("button");
-    button.className = "lecture-btn";
-    button.textContent = `${index + 1}. ${lecture.title}`;
-    button.addEventListener("click", () => {
-      currentIndex = index;
-      render();
+  function renderLectureList() {
+    lectureList.innerHTML = "";
+    lectures.forEach((lecture, index) => {
+      const li = document.createElement("li");
+      const button = document.createElement("button");
+      button.className = "lecture-btn";
+      button.textContent = `${index + 1}. ${lecture.title}`;
+      button.addEventListener("click", () => {
+        currentIndex = index;
+        render();
+      });
+      li.appendChild(button);
+      lectureList.appendChild(li);
     });
-    li.appendChild(button);
-    lectureList.appendChild(li);
+  }
+
+  async function enhanceUi() {
+    if (window.hljs) {
+      slideContainer.querySelectorAll("pre code").forEach((block) => hljs.highlightElement(block));
+    }
+    await mermaid.run({ querySelector: ".mermaid" });
+  }
+
+  async function render() {
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    progressText.textContent = `${currentIndex + 1} / ${lectures.length} 페이지 로딩 중...`;
+    slideContainer.innerHTML = `<p class="status">강의 자료를 불러오는 중입니다...</p>`;
+
+    try {
+      const html = await fetchLectureHtml(currentIndex);
+      slideContainer.innerHTML = html;
+      await enhanceUi();
+    } catch (error) {
+      slideContainer.innerHTML = `
+        <h2>강의 로딩 오류</h2>
+        <p>${error.message}</p>
+      `;
+    }
+
+    [...document.querySelectorAll(".lecture-btn")].forEach((btn, index) => {
+      btn.classList.toggle("active", index === currentIndex);
+    });
+
+    progressText.textContent = `${currentIndex + 1} / ${lectures.length} 페이지`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === lectures.length - 1;
+    nextBtn.textContent = currentIndex === lectures.length - 1 ? "마침" : (currentIndex === 0 ? "다음" : "다음 강의");
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex -= 1;
+      render();
+    }
   });
-}
 
-async function render() {
-  prevBtn.disabled = true;
-  nextBtn.disabled = true;
-  progressText.textContent = `${currentIndex + 1} / ${lectureFiles.length} 페이지 로딩 중...`;
-  slideContainer.innerHTML = `<p class="status">강의 자료를 불러오는 중입니다...</p>`;
-
-  try {
-    const md = await fetchMarkdown(currentIndex);
-    slideContainer.innerHTML = markdownToHtml(md);
-  } catch (error) {
-    slideContainer.innerHTML = `
-      <h2>강의 로딩 오류</h2>
-      <p>${error.message}</p>
-      <p>파일 경로를 확인하세요: <code>${lectureFiles[currentIndex].path}</code></p>
-    `;
-  }
-
-  [...document.querySelectorAll(".lecture-btn")].forEach((btn, index) => {
-    btn.classList.toggle("active", index === currentIndex);
+  nextBtn.addEventListener("click", () => {
+    if (currentIndex < lectures.length - 1) {
+      currentIndex += 1;
+      render();
+    }
   });
 
-  progressText.textContent = `${currentIndex + 1} / ${lectureFiles.length} 페이지`;
-  prevBtn.disabled = currentIndex === 0;
-  nextBtn.disabled = currentIndex === lectureFiles.length - 1;
-  nextBtn.textContent = currentIndex === lectureFiles.length - 1 ? "마침" : (currentIndex === 0 ? "다음" : "다음 강의");
-}
-
-prevBtn.addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex -= 1;
-    render();
-  }
-});
-
-nextBtn.addEventListener("click", () => {
-  if (currentIndex < lectureFiles.length - 1) {
-    currentIndex += 1;
-    render();
-  }
-});
-
-(async function init() {
-  await preloadTitles();
-  renderLectureList();
-  render();
-})();
+  (async function init() {
+    try {
+      await loadManifest();
+      renderLectureList();
+      render();
+    } catch (error) {
+      slideContainer.innerHTML = `<h2>초기화 실패</h2><p>${error.message}</p>`;
+      progressText.textContent = "초기화 실패";
+    }
+  })();
 </script>
 </body>
 </html>

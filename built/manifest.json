@@ -1,0 +1,89 @@
+{
+  "total": 12,
+  "lectures": [
+    {
+      "id": 0,
+      "week": "01",
+      "title": "Week 01 — 컴퓨터 원리와 Python 입문",
+      "source": "curriculum/week01.md",
+      "html": "built/weeks/week01.html"
+    },
+    {
+      "id": 1,
+      "week": "02",
+      "title": "Week 02 — Python 프로그래밍 기초",
+      "source": "curriculum/week02.md",
+      "html": "built/weeks/week02.html"
+    },
+    {
+      "id": 2,
+      "week": "03",
+      "title": "Week 03 — Flask 서버 기초",
+      "source": "curriculum/week03.md",
+      "html": "built/weeks/week03.html"
+    },
+    {
+      "id": 3,
+      "week": "04",
+      "title": "Week 04 — Machine Learning 기초",
+      "source": "curriculum/week04.md",
+      "html": "built/weeks/week04.html"
+    },
+    {
+      "id": 4,
+      "week": "05",
+      "title": "Week 05 — Neural Network 기초",
+      "source": "curriculum/week05.md",
+      "html": "built/weeks/week05.html"
+    },
+    {
+      "id": 5,
+      "week": "06",
+      "title": "Week 06 — CNN & RNN 기초",
+      "source": "curriculum/week06.md",
+      "html": "built/weeks/week06.html"
+    },
+    {
+      "id": 6,
+      "week": "07",
+      "title": "Week 07 — Transformer 기초",
+      "source": "curriculum/week07.md",
+      "html": "built/weeks/week07.html"
+    },
+    {
+      "id": 7,
+      "week": "08",
+      "title": "Week 08 — LLM의 탄생 (GPT & Gemini)",
+      "source": "curriculum/week08.md",
+      "html": "built/weeks/week08.html"
+    },
+    {
+      "id": 8,
+      "week": "09",
+      "title": "Week 09 — API 활용과 프롬프트 엔지니어링",
+      "source": "curriculum/week09.md",
+      "html": "built/weeks/week09.html"
+    },
+    {
+      "id": 9,
+      "week": "10",
+      "title": "Week 10 — GitHub, 코드의 타임머신",
+      "source": "curriculum/week10.md",
+      "html": "built/weeks/week10.html"
+    },
+    {
+      "id": 10,
+      "week": "11",
+      "title": "Week 11 — AI 서비스 구현 (MVP)",
+      "source": "curriculum/week11.md",
+      "html": "built/weeks/week11.html"
+    },
+    {
+      "id": 11,
+      "week": "12",
+      "title": "Week 12 — 클라우드 배포와 최종 발표",
+      "source": "curriculum/week12.md",
+      "html": "built/weeks/week12.html"
+    }
+  ]
+}
