@@ -1,23 +1,60 @@
 <article class="doc-content"><h1 id="week-09-api-활용과-프롬프트-엔지니어링">Week 09 — API 활용과 프롬프트 엔지니어링</h1>
 <h2 id="주제">주제</h2>
-<p>LLM API 호출과 프롬프트 설계 기법을 익혀 응답 품질을 개선한다.</p>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<h3 id="텍스트-흐름">텍스트 흐름</h3>
-<p>프롬프트 설계 → API 요청(JSON) → LLM 추론 → 구조화 응답 → 후처리/검증</p>
-<h3 id="그림">그림</h3>
-<div class="mermaid">flowchart LR;
-PR[프롬프트 설계] --> API[API 요청];
-API --> LLM[LLM 추론];
-LLM --> RS[구조화 응답];
-RS --> V[후처리/검증];</div>
+<p>LLM API 호출 구조와 프롬프트 설계 방법을 통해 응답 품질을 개선한다.</p>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>API 요청/응답(JSON) 구조 이해</li>
-<li>시스템/사용자 프롬프트 역할 구분</li>
-<li>제약조건, 예시 기반 프롬프트 설계</li>
+<li>API 요청/응답(JSON) 구조를 읽고 작성할 수 있다.</li>
+<li>시스템/사용자 프롬프트 역할을 구분할 수 있다.</li>
+<li>제약조건, 예시, 출력 형식을 포함한 프롬프트를 설계할 수 있다.</li>
+</ul>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>요구사항 정의 → 프롬프트 설계 → API 호출 → 결과 검증/개선</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">flowchart LR;
+R[요구사항] --> P[Prompt 설계];
+P --> A[API 요청];
+A --> L[LLM 응답];
+L --> V[검증/후처리];</div>
+<hr />
+<h2 id="학습내용">학습내용</h2>
+<ul>
+<li>API 호출 시 모델명, 메시지 배열, 파라미터(temperature, max_tokens)를 명시한다.</li>
+<li>시스템 프롬프트는 전역 규칙, 사용자 프롬프트는 작업 요구를 전달한다.</li>
+<li>구조화 출력(JSON schema, 키 고정) 요구를 주면 후처리가 안정적이다.</li>
+</ul>
+<pre><code class="language-python">payload = {
+  &quot;model&quot;: &quot;gpt-4.1-mini&quot;,
+  &quot;messages&quot;: [
+    {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;항상 JSON으로 답하라&quot;},
+    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;3문장 요약&quot;}
+  ]
+}</code></pre>
+<ul>
+<li>최신 운영에서는 프롬프트 버전관리, 자동 평가셋 회귀 테스트를 함께 적용한다.</li>
+</ul>
+<hr />
+<h2 id="핵심개념-정리">핵심개념 정리</h2>
+<ul>
+<li>API 구조: request → response</li>
+<li>프롬프트 분리: system / user / assistant</li>
+<li>품질 개선: 제약 명시 + 평가 루프</li>
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p>동일 작업을 기본 프롬프트 vs 개선 프롬프트로 비교 테스트.</p></article>
+<p>같은 작업에 대해 기본 프롬프트와 개선 프롬프트를 설계하고 결과를 비교한다.</p>
+<hr />
+<h2 id="확장-실습">확장 실습</h2>
+<ul>
+<li>함수호출(Function Calling) 형태로 출력 강제</li>
+<li>실패 케이스 수집 후 프롬프트 수정</li>
+</ul>
+<hr />
+<h2 id="체크리스트">체크리스트</h2>
+<ul>
+<li>[ ] JSON 요청 구조를 작성할 수 있다.</li>
+<li>[ ] 시스템/사용자 프롬프트를 구분할 수 있다.</li>
+<li>[ ] 개선된 프롬프트를 설계할 수 있다.</li>
+</ul></article>

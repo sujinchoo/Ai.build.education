@@ -1,23 +1,57 @@
 <article class="doc-content"><h1 id="week-11-ai-서비스-구현-mvp">Week 11 — AI 서비스 구현 (MVP)</h1>
 <h2 id="주제">주제</h2>
-<p>Flask와 AI API를 결합해 동작하는 최소기능제품(MVP)을 완성한다.</p>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<h3 id="텍스트-흐름">텍스트 흐름</h3>
-<p>문제 정의 → Flask 백엔드 + AI API 연동 → 프론트 UI 연결 → 사용자 피드백으로 MVP 개선</p>
-<h3 id="그림">그림</h3>
-<div class="mermaid">flowchart LR;
-P[문제/기능 정의] --> B[백엔드 API 연동];
-B --> U[프론트 UI 연결];
-U --> T[사용자 테스트];
-T --> I[MVP 개선];</div>
+<p>Flask 백엔드와 AI API를 통합해 실제 동작하는 MVP를 구현한다.</p>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>기능 우선순위(MVP) 정의</li>
-<li>백엔드 API 연동과 오류 처리</li>
-<li>키 보안 및 로그 관리 기초</li>
+<li>MVP 기능 우선순위를 정하고 범위를 제한할 수 있다.</li>
+<li>AI API 연동 시 오류 처리/재시도/로그를 설계할 수 있다.</li>
+<li>API 키와 사용자 데이터 보안 기본 원칙을 적용할 수 있다.</li>
+</ul>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>문제 정의 → 최소 기능 설계 → API 연동 구현 → 테스트/피드백 → 개선</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">flowchart LR;
+D[문제 정의] --> M[MVP 기능 선택];
+M --> B[Backend + AI API];
+B --> U[UI 연결];
+U --> T[테스트/피드백];</div>
+<hr />
+<h2 id="학습내용">학습내용</h2>
+<ul>
+<li>MVP는 &quot;핵심 가치 검증&quot;에 필요한 최소 기능만 구현한다.</li>
+<li>API 연동 시 timeout, 예외 응답, rate limit에 대응해야 한다.</li>
+<li>비밀키는 <code>.env</code> 환경변수로 관리하고 저장소에 커밋하지 않는다.</li>
+</ul>
+<pre><code class="language-python">import os
+api_key = os.getenv(&quot;OPENAI_API_KEY&quot;)
+if not api_key:
+    raise RuntimeError(&quot;API key is missing&quot;)</code></pre>
+<ul>
+<li>최신 서비스 개발에서는 관측성(로그/메트릭)과 사용자 피드백 루프가 초기 품질을 좌우한다.</li>
+</ul>
+<hr />
+<h2 id="핵심개념-정리">핵심개념 정리</h2>
+<ul>
+<li>MVP: 핵심 기능 우선</li>
+<li>안정성: 오류 처리 + 재시도</li>
+<li>보안: 키 관리 + 입력 검증</li>
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p>질문-답변이 동작하는 챗 인터페이스 구현 후 데모.</p></article>
+<p>질문-답변 챗 MVP를 구현하고 에러 상황(키 없음/타임아웃) 처리 메시지를 추가한다.</p>
+<hr />
+<h2 id="확장-실습">확장 실습</h2>
+<ul>
+<li>간단한 사용량 로깅 대시보드 추가</li>
+<li>사용자 세션별 대화 이력 저장</li>
+</ul>
+<hr />
+<h2 id="체크리스트">체크리스트</h2>
+<ul>
+<li>[ ] MVP 범위를 정의할 수 있다.</li>
+<li>[ ] API 오류 처리를 구현할 수 있다.</li>
+<li>[ ] 키 보안 원칙을 적용할 수 있다.</li>
+</ul></article>

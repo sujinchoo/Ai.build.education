@@ -1,27 +1,60 @@
 <article class="doc-content"><h1 id="week-10-github-코드의-타임머신">Week 10 — GitHub, 코드의 타임머신</h1>
 <h2 id="주제">주제</h2>
-<p>Git/GitHub 협업과 버전 관리 기본기를 실습한다.</p>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<h3 id="텍스트-흐름">텍스트 흐름</h3>
-<p>main 브랜치에서 분기 → 기능 커밋 누적 → Pull Request 생성 → 코드 리뷰 후 병합</p>
-<h3 id="그림">그림</h3>
-<div class="mermaid">gitGraph
-commit id: "main 시작";
-branch feature/login;
-checkout feature/login;
-commit id: "UI 수정";
-commit id: "버그 수정";
-checkout main;
-merge feature/login;
-commit id: "PR 머지 완료";</div>
+<p>Git/GitHub 기반 협업과 버전 관리 흐름을 실습 중심으로 익힌다.</p>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li><code>add/commit/push/pull</code> 명령어 숙달</li>
-<li>브랜치 전략과 PR 리뷰 흐름 이해</li>
-<li>충돌 해결 기본 절차 학습</li>
+<li>add/commit/push/pull 명령을 정확히 사용할 수 있다.</li>
+<li>브랜치-PR 기반 협업 흐름을 설명할 수 있다.</li>
+<li>충돌(conflict) 발생 시 기본 해결 절차를 수행할 수 있다.</li>
+</ul>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>브랜치 생성 → 기능 커밋 → 원격 푸시 → PR 생성/리뷰 → 머지</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">gitGraph
+commit id: "main";
+branch feature;
+checkout feature;
+commit id: "feat: update";
+checkout main;
+merge feature;
+commit id: "merge PR";</div>
+<hr />
+<h2 id="학습내용">학습내용</h2>
+<ul>
+<li>Git은 로컬 히스토리 관리 도구, GitHub는 원격 협업 플랫폼이다.</li>
+<li>실무 기본 루프는 <code>branch -&gt; commit -&gt; push -&gt; PR -&gt; review -&gt; merge</code>다.</li>
+<li>커밋 메시지는 변경 의도를 명확히 기록해야 추적이 쉽다.</li>
+</ul>
+<pre><code class="language-bash">git checkout -b feature/login-ui
+git add .
+git commit -m &quot;feat: 로그인 UI 문구 수정&quot;
+git push -u origin feature/login-ui</code></pre>
+<ul>
+<li>최신 협업에서는 보호 브랜치, CI 검사, 코드오너 리뷰를 기본 정책으로 둔다.</li>
+</ul>
+<hr />
+<h2 id="핵심개념-정리">핵심개념 정리</h2>
+<ul>
+<li>버전 관리: 변경 이력 추적</li>
+<li>브랜치 전략: main 보호 + 기능 분기</li>
+<li>PR: 코드 리뷰와 품질 게이트</li>
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p>브랜치 생성 후 <code>index.html</code> 수정 → PR 설명 작성까지 수행.</p></article>
+<p>브랜치를 생성해 파일 수정 후 PR 설명(변경점/테스트/영향범위)을 작성한다.</p>
+<hr />
+<h2 id="확장-실습">확장 실습</h2>
+<ul>
+<li>의도적으로 충돌을 만들고 수동 해결</li>
+<li>Conventional Commits 형식 적용</li>
+</ul>
+<hr />
+<h2 id="체크리스트">체크리스트</h2>
+<ul>
+<li>[ ] 핵심 Git 명령을 사용할 수 있다.</li>
+<li>[ ] PR 기반 협업 흐름을 설명할 수 있다.</li>
+<li>[ ] 충돌 해결 절차를 실행할 수 있다.</li>
+</ul></article>

@@ -1,25 +1,61 @@
 <article class="doc-content"><h1 id="week-05-neural-network-기초">Week 05 — Neural Network 기초</h1>
 <h2 id="주제">주제</h2>
-<p>퍼셉트론과 다층 신경망 구조, 활성화 함수, 학습 과정을 이해한다.</p>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<h3 id="텍스트-흐름">텍스트 흐름</h3>
-<p>입력층 → 은닉층(활성화 함수) → 출력층 → 손실 계산 → 역전파로 가중치 업데이트</p>
-<h3 id="그림">그림</h3>
-<div class="mermaid">flowchart LR;
-I[입력층] --> H[은닉층<br/>ReLU/Sigmoid];
-H --> O[출력층];
-O --> L[손실 계산];
-L --> B[역전파];
-B --> W[가중치 업데이트];
-W --> H;</div>
+<p>퍼셉트론부터 다층 신경망, 활성화 함수, 역전파까지 신경망의 기본 원리를 이해한다.</p>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>퍼셉트론 구조 이해</li>
-<li>ReLU/Sigmoid/Softmax 역할 구분</li>
-<li>오차역전파 개념 이해</li>
+<li>퍼셉트론과 다층 신경망 구조를 설명할 수 있다.</li>
+<li>ReLU, Sigmoid, Softmax의 역할을 구분할 수 있다.</li>
+<li>손실 함수와 역전파의 관계를 설명할 수 있다.</li>
+</ul>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>입력층 → 은닉층(활성화) → 출력층 → 손실 계산 → 역전파 업데이트</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">flowchart LR;
+I[Input] --> H[Hidden + ReLU];
+H --> O[Output];
+O --> L[Loss];
+L --> B[Backprop];
+B --> W[Weight Update];</div>
+<hr />
+<h2 id="학습내용">학습내용</h2>
+<ul>
+<li>퍼셉트론은 입력의 가중합과 활성화 함수로 출력을 만든다.</li>
+<li>다층 신경망은 비선형 표현을 학습해 복잡한 패턴을 처리한다.</li>
+<li>역전파는 손실을 줄이는 방향으로 가중치를 갱신한다.</li>
+</ul>
+<pre><code class="language-python">from sklearn.neural_network import MLPClassifier
+
+X = [[0,0],[0,1],[1,0],[1,1]]
+y = [0,1,1,0]
+clf = MLPClassifier(hidden_layer_sizes=(8,), max_iter=2000, random_state=42)
+clf.fit(X, y)
+print(clf.predict([[1, 0]]))</code></pre>
+<ul>
+<li>최신 딥러닝에서는 Adam 옵티마이저, 학습률 스케줄링, 정규화가 기본 설정으로 널리 쓰인다.</li>
+</ul>
+<hr />
+<h2 id="핵심개념-정리">핵심개념 정리</h2>
+<ul>
+<li>뉴런 계산: 가중합 + 활성화</li>
+<li>학습: 손실 최소화</li>
+<li>역전파: 기울기 기반 파라미터 업데이트</li>
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p>간단한 <code>MLPClassifier</code>를 이용해 이진 분류 실습 후 정확도 확인.</p></article>
+<p>간단한 이진 분류 데이터로 MLP를 학습하고 정확도를 확인한다.</p>
+<hr />
+<h2 id="확장-실습">확장 실습</h2>
+<ul>
+<li>은닉층 크기/학습률 변경 후 성능 비교</li>
+<li>과적합 방지를 위한 검증셋 분리</li>
+</ul>
+<hr />
+<h2 id="체크리스트">체크리스트</h2>
+<ul>
+<li>[ ] 퍼셉트론과 다층 구조 차이를 설명할 수 있다.</li>
+<li>[ ] 활성화 함수 역할을 구분할 수 있다.</li>
+<li>[ ] 역전파 개념을 설명할 수 있다.</li>
+</ul></article>

@@ -1,23 +1,58 @@
 <article class="doc-content"><h1 id="week-08-llm의-탄생-gpt-gemini">Week 08 — LLM의 탄생 (GPT &amp; Gemini)</h1>
 <h2 id="주제">주제</h2>
-<p>사전학습·미세조정·RLHF를 중심으로 LLM 개발 과정을 이해한다.</p>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<h3 id="텍스트-흐름">텍스트 흐름</h3>
-<p>대규모 사전학습(Pre-training) → 작업별 미세조정(Fine-tuning) → RLHF 정렬 → 서비스 배포</p>
-<h3 id="그림">그림</h3>
-<div class="mermaid">flowchart LR;
-P[대규모 텍스트 코퍼스] --> PT[Pre-training];
-PT --> FT[Fine-tuning];
-FT --> R[RLHF 정렬];
-R --> S[실서비스 모델];</div>
+<p>사전학습, 미세조정, 정렬 과정을 통해 LLM이 어떻게 만들어지는지 이해한다.</p>
 <hr />
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>Pre-training / Fine-tuning 차이 설명</li>
-<li>RLHF 개념과 목적 이해</li>
-<li>모델 선택 시 비용/속도/품질 기준 정리</li>
+<li>Pre-training과 Fine-tuning의 목적 차이를 설명할 수 있다.</li>
+<li>RLHF/정렬의 필요성과 한계를 설명할 수 있다.</li>
+<li>서비스 요구사항에 맞춰 모델 선택 기준을 세울 수 있다.</li>
+</ul>
+<hr />
+<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
+<h3 id="텍스트-흐름">텍스트 흐름</h3>
+<p>대규모 사전학습 → 작업별 미세조정 → 정렬(RLHF/RLAIF) → 운영 배포</p>
+<h3 id="그림">그림</h3>
+<div class="mermaid">flowchart LR;
+C[대규모 코퍼스] --> P[Pre-training];
+P --> F[Fine-tuning];
+F --> A[Alignment];
+A --> S[Serving];</div>
+<hr />
+<h2 id="학습내용">학습내용</h2>
+<ul>
+<li>Pre-training은 광범위한 언어 패턴을 학습하고, Fine-tuning은 특정 작업 성능을 개선한다.</li>
+<li>정렬 단계는 유해성 감소, 지시 준수, 품질 일관성 확보를 목표로 한다.</li>
+<li>모델 선택 시 품질, 지연시간, 비용, 컨텍스트 길이, 안전 정책을 함께 검토해야 한다.</li>
+</ul>
+<pre><code class="language-text">모델 선택 예시 기준
+1) 응답 품질(정확성/추론)
+2) 비용(입출력 토큰 단가)
+3) 지연시간(P95)
+4) 안전/규정 준수</code></pre>
+<ul>
+<li>최신 트렌드는 SFT + 선호학습(DPO 등), 경량 모델의 온디바이스 활용 확대다.</li>
+</ul>
+<hr />
+<h2 id="핵심개념-정리">핵심개념 정리</h2>
+<ul>
+<li>Pre-training: 범용 지식 습득</li>
+<li>Fine-tuning: 도메인 적응</li>
+<li>Alignment: 사용자 의도와 안전성 정렬</li>
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p>서비스 시나리오를 정하고 적합한 LLM 계열 선정 근거 작성.</p></article>
+<p>하나의 서비스 시나리오를 정하고 적합한 모델 계열을 선정해 근거를 작성한다.</p>
+<hr />
+<h2 id="확장-실습">확장 실습</h2>
+<ul>
+<li>프롬프트 기반 개선 vs 파인튜닝 적용 기준 비교</li>
+<li>폐쇄형 API와 오픈모델 배포 방식 비교</li>
+</ul>
+<hr />
+<h2 id="체크리스트">체크리스트</h2>
+<ul>
+<li>[ ] Pre-training/Fine-tuning 차이를 설명할 수 있다.</li>
+<li>[ ] 정렬 단계의 목적을 설명할 수 있다.</li>
+<li>[ ] 모델 선택 기준표를 만들 수 있다.</li>
+</ul></article>
