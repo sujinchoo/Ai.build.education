@@ -9,8 +9,15 @@
 <li>템플릿 렌더링으로 동적 페이지를 출력할 수 있다.</li>
 </ul>
 <hr />
+<h2 id="학습-내용-목표-연계">학습 내용 (목표 연계)</h2>
+<ul>
+<li><strong>GET/POST 차이</strong>: GET은 조회 중심, POST는 데이터 생성/전송 중심이라는 목적 차이를 실제 URL/폼 예제로 구분한다.</li>
+<li><strong>라우팅과 URL 파라미터</strong>: Flask의 <code>@app.route()</code>로 경로를 함수에 연결하고, <code>&lt;name&gt;</code> 같은 파라미터를 받아 동적으로 응답을 만든다.</li>
+<li><strong>템플릿 렌더링</strong>: <code>render_template()</code>로 서버 데이터를 HTML에 전달해 사용자마다 다른 화면을 만들 수 있다.</li>
+<li><strong>초급자 포인트</strong>: 서버 실행 후 브라우저에서 주소를 바꿔보며 어떤 함수가 실행되는지 직접 추적해본다.</li>
+</ul>
+<hr />
 <h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<h3 id="텍스트-흐름">텍스트 흐름</h3>
 <p>브라우저 요청 → Flask 라우트 매칭 → 서버 로직 실행 → HTML/JSON 응답</p>
 <h3 id="그림">그림</h3>
 <div class="mermaid">sequenceDiagram
@@ -20,7 +27,7 @@ U->>F: GET /hello/Jin;
 F->>F: route + function;
 F-->>U: HTML response;</div>
 <hr />
-<h2 id="학습내용">학습내용</h2>
+<h2 id="학습-예시-및-코드">학습 예시 및 코드</h2>
 <ul>
 <li>HTTP는 클라이언트 요청과 서버 응답으로 동작한다.</li>
 <li>Flask의 <code>@app.route()</code>는 URL과 Python 함수를 연결한다.</li>
@@ -45,7 +52,11 @@ def hello(name):
 </ul>
 <hr />
 <h2 id="실습-미션">실습 미션</h2>
-<p><code>/greet/&lt;name&gt;</code> 경로를 만들고 이름을 받아 환영 문장을 출력한다.</p>
+<ol>
+<li>이번 주 학습 목표 3가지를 확인하고, 각 목표를 검증할 수 있는 실습 항목을 최소 1개씩 수행한다.</li>
+<li>실습 과정(입력값, 코드/설정, 실행 결과)을 문서나 노트에 정리한다.</li>
+<li>어려웠던 점 1가지와 다음 주에 개선할 점 1가지를 작성한다.</li>
+</ol>
 <hr />
 <h2 id="확장-실습">확장 실습</h2>
 <ul>
