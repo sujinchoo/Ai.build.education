@@ -1,44 +1,161 @@
-<article class="doc-content"><h1 id="week-12-최종-정리-ai-기초-과정-통합과-html-학습-페이지-운영">Week 12 — 최종 정리: AI 기초 과정 통합과 HTML 학습 페이지 운영</h1>
+<article class="doc-content"><h1 id="week-12-htmlcssjavascript-핵심-이론과-필수-코드">Week 12 — HTML/CSS/JavaScript 핵심 이론과 필수 코드</h1>
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>12주 기초 과정을 한 흐름으로 연결한다.</li>
-<li>Markdown 기반 강의자료를 HTML로 배포하는 방법을 이해한다.</li>
-<li>이후 심화 학습 로드맵을 수립한다.</li>
+<li>HTML 문서 구조와 주요 태그의 역할을 설명한다.</li>
+<li>CSS로 레이아웃과 시각 스타일을 적용하는 원리를 이해한다.</li>
+<li>JavaScript의 동작 방식과 브라우저 실행 원리를 기초 수준에서 설명한다.</li>
 </ul>
 <hr />
-<h2 id="1-우리가-배운-전체-흐름">1. 우리가 배운 전체 흐름</h2>
+<h2 id="1-html-이론-웹페이지의-뼈대">1. HTML 이론: 웹페이지의 뼈대</h2>
+<p>HTML(HyperText Markup Language)은 웹페이지의 구조를 정의하는 마크업 언어다.</p>
+<h3 id="11-html-문서의-기본-구조">1.1 HTML 문서의 기본 구조</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+  &lt;title&gt;문서 제목&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;안녕하세요&lt;/h1&gt;
+  &lt;p&gt;첫 웹페이지입니다.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="12-자주-사용하는-필수-태그">1.2 자주 사용하는 필수 태그</h3>
+<ul>
+<li>제목: <code>&lt;h1&gt;</code> ~ <code>&lt;h6&gt;</code></li>
+<li>본문 텍스트: <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;strong&gt;</code></li>
+<li>링크/이미지: <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code></li>
+<li>목록: <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code></li>
+<li>구역 나누기: <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;main&gt;</code></li>
+<li>입력 폼: <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;label&gt;</code></li>
+</ul>
+<h2 id="2-html-기초-실습-코드">2. HTML 기초 실습 코드</h2>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;AI 학습 노트&lt;/h1&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;오늘의 목표&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;HTML 구조 이해&lt;/li&gt;
+        &lt;li&gt;CSS로 스타일 적용&lt;/li&gt;
+        &lt;li&gt;JS로 상호작용 만들기&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;문의&lt;/h2&gt;
+      &lt;form&gt;
+        &lt;label for=&quot;email&quot;&gt;이메일&lt;/label&gt;
+        &lt;input id=&quot;email&quot; type=&quot;email&quot; placeholder=&quot;you@example.com&quot; /&gt;
+        &lt;button type=&quot;submit&quot;&gt;제출&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+<h2 id="3-css-설명-스타일을-입히는-원리">3. CSS 설명: 스타일을 입히는 원리</h2>
+<p>CSS(Cascading Style Sheets)는 HTML 요소에 색상, 크기, 배치, 반응형 동작을 적용한다.</p>
+<h3 id="31-css-기본-문법">3.1 CSS 기본 문법</h3>
+<pre><code class="language-css">selector {
+  property: value;
+}</code></pre>
+<h3 id="32-필수-css-코드-예시">3.2 필수 CSS 코드 예시</h3>
+<pre><code class="language-css">body {
+  font-family: &quot;Noto Sans KR&quot;, sans-serif;
+  margin: 0;
+  padding: 24px;
+  background: #f8fafc;
+}
+
+h1 {
+  color: #1d4ed8;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+}</code></pre>
+<h3 id="33-css-핵심-개념">3.3 CSS 핵심 개념</h3>
+<ul>
+<li>선택자(Selector): 어떤 HTML 요소에 스타일을 적용할지 지정</li>
+<li>박스 모델(Box Model): content + padding + border + margin</li>
+<li>캐스케이딩(Cascade): 우선순위 규칙으로 최종 스타일 결정</li>
+<li>레이아웃: <code>display</code>, <code>position</code>, <code>flex</code>, <code>grid</code>로 화면 배치</li>
+</ul>
+<h2 id="4-javascript-설명-및-동작-원리">4. JavaScript 설명 및 동작 원리</h2>
+<p>JavaScript는 웹페이지를 동적으로 바꾸고 사용자와 상호작용하게 만드는 프로그래밍 언어다.</p>
+<h3 id="41-javascript가-하는-일">4.1 JavaScript가 하는 일</h3>
+<ul>
+<li>버튼 클릭, 입력값 검증, 모달 열기/닫기</li>
+<li>API 호출 후 화면 갱신</li>
+<li>타이머, 애니메이션, 상태 관리</li>
+</ul>
+<h3 id="42-필수-javascript-코드-예시">4.2 필수 JavaScript 코드 예시</h3>
+<pre><code class="language-html">&lt;button id=&quot;helloBtn&quot;&gt;클릭&lt;/button&gt;
+&lt;p id=&quot;result&quot;&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  const button = document.getElementById(&quot;helloBtn&quot;);
+  const result = document.getElementById(&quot;result&quot;);
+
+  button.addEventListener(&quot;click&quot;, () =&gt; {
+    result.textContent = &quot;안녕하세요! JavaScript가 DOM을 변경했습니다.&quot;;
+  });
+&lt;/script&gt;</code></pre>
+<h3 id="43-javascript-실행-원리기초">4.3 JavaScript 실행 원리(기초)</h3>
 <ol>
-<li>Python 기초 문법과 문제 해결</li>
-<li>데이터 전처리와 머신러닝 기초</li>
-<li>딥러닝(ANN), CNN, RNN/LSTM</li>
-<li>Transformer와 LLM(GPT/BERT)</li>
-<li>ChatGPT 발전 원리(Instruction Tuning + RLHF)</li>
-<li>RAG 기반 서비스 구현</li>
+<li>브라우저가 HTML 파싱 후 DOM(Document Object Model) 생성</li>
+<li>CSS 파싱 후 CSSOM 생성</li>
+<li>JavaScript 엔진이 스크립트를 실행</li>
+<li>이벤트(클릭/입력)가 발생하면 등록된 함수(콜백) 실행</li>
+<li>DOM 변경 시 브라우저가 다시 렌더링하여 화면 갱신</li>
 </ol>
-<h2 id="2-markdown-html-연결-방식">2. Markdown → HTML 연결 방식</h2>
-<ul>
-<li>원본 강의: <code>curriculum/week01.md</code> ~ <code>week12.md</code></li>
-<li>빌드 명령: <code>python build_curriculum.py</code></li>
-<li>생성 결과: <code>built/weeks/*.html</code>, <code>built/manifest.json</code></li>
-<li><code>index.html</code>이 manifest를 읽어 주차별 페이지 로드</li>
-</ul>
-<h2 id="3-학습-페이지-운영-팁">3. 학습 페이지 운영 팁</h2>
-<ul>
-<li>한 주차 수정 후 즉시 빌드/검수</li>
-<li>코드 블록, 표, Mermaid 다이어그램 활용</li>
-<li>주차별 실습 결과를 별도 저장소로 관리</li>
-</ul>
-<h2 id="4-다음-단계-로드맵">4. 다음 단계 로드맵</h2>
-<ul>
-<li>수학 심화: 선형대수/확률/최적화</li>
-<li>모델 심화: ViT, Diffusion, MoE</li>
-<li>서비스 심화: 평가 자동화, 모니터링, 비용 최적화</li>
-</ul>
-<h2 id="최종-미션">최종 미션</h2>
+<div class="callout callout-tip"><div class="callout-title">TIP</div><p>HTML은 구조, CSS는 디자인, JavaScript는 동작을 담당한다. 세 가지를 분리해서 작성하면 유지보수가 쉬워진다.</p></div>
+<h2 id="5-통합-필수-코드-안내-한-파일-예시">5. 통합 필수 코드 안내 (한 파일 예시)</h2>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+  &lt;title&gt;Web Basics&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; padding: 20px; }
+    .box { border: 1px solid #ddd; padding: 12px; border-radius: 8px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&quot;box&quot;&gt;
+    &lt;h1&gt;HTML + CSS + JS&lt;/h1&gt;
+    &lt;button id=&quot;btn&quot;&gt;메시지 보기&lt;/button&gt;
+    &lt;p id=&quot;msg&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    document.getElementById(&quot;btn&quot;).addEventListener(&quot;click&quot;, function () {
+      document.getElementById(&quot;msg&quot;).textContent = &quot;웹의 3요소가 함께 동작합니다.&quot;;
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 id="실습-미션">실습 미션</h2>
 <ol>
-<li>자신만의 AI 기초 강의 1주차를 새로 작성.</li>
-<li>Markdown 수정 후 빌드하여 HTML에서 확인.</li>
-<li>배운 모델 중 1개를 선택해 이론/원리 발표 자료 작성.</li>
+<li>자기소개 HTML 페이지를 작성한다.</li>
+<li>CSS로 카드 UI를 만들고 색상/간격/폰트를 조정한다.</li>
+<li>버튼 클릭 시 문구가 바뀌는 JavaScript 기능을 추가한다.</li>
+<li>입력 폼에서 이메일 형식을 검사하는 간단한 검증 로직을 구현한다.</li>
 </ol>
 <h2 id="정리">정리</h2>
-<p>이제 여러분은 AI 학습의 기반 개념과 서비스 구현 흐름을 한 번에 연결할 수 있다.</p></article>
+<p>이번 주차에서 HTML 구조, CSS 스타일링, JavaScript 동작 원리를 연결해 웹 프론트엔드의 핵심 3요소를 이해했다.</p></article>

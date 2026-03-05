@@ -1,5 +1,5 @@
 {
-  "total": 12,
+  "total": 13,
   "lectures": [
     {
       "id": 0,
@@ -81,9 +81,16 @@
     {
       "id": 11,
       "week": "12",
-      "title": "Week 12 — 최종 정리: AI 기초 과정 통합과 HTML 학습 페이지 운영",
+      "title": "Week 12 — HTML/CSS/JavaScript 핵심 이론과 필수 코드",
       "source": "curriculum/week12.md",
       "html": "built/weeks/week12.html"
+    },
+    {
+      "id": 12,
+      "week": "13",
+      "title": "Week 13 — 최종 정리: AI 기초 과정 통합과 HTML 학습 페이지 운영",
+      "source": "curriculum/week13.md",
+      "html": "built/weeks/week13.html"
     }
   ]
 }
