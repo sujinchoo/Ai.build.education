@@ -1,76 +1,39 @@
-<article class="doc-content"><h1 id="week-06-cnn-rnn-기초">Week 06 — CNN &amp; RNN 기초</h1>
-<h2 id="주제">주제</h2>
-<p>CNN과 RNN/LSTM의 처리 대상과 동작 차이를 이해하고 대표 사용 사례를 학습한다.</p>
-<hr />
+<article class="doc-content"><h1 id="week-06-cnn-이미지-인식-혁신-모델의-원리">Week 06 — CNN: 이미지 인식 혁신 모델의 원리</h1>
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>CNN의 Convolution/Pooling 동작을 설명할 수 있다.</li>
-<li>RNN의 순차 처리 구조와 한계를 설명할 수 있다.</li>
-<li>LSTM이 왜 필요한지 설명할 수 있다.</li>
+<li>CNN이 왜 이미지 처리에 강한지 설명한다.</li>
+<li>컨볼루션, 풀링, 필터의 역할을 이해한다.</li>
+<li>대표 CNN 계열(LeNet, AlexNet, ResNet) 흐름을 파악한다.</li>
 </ul>
 <hr />
-<h2 id="학습-내용-목표-연계">학습 내용 (목표 연계)</h2>
+<h2 id="1-cnn이-필요한-이유">1. CNN이 필요한 이유</h2>
+<p>일반 신경망은 이미지 픽셀 수가 늘면 파라미터가 폭증한다.</p>
+<p>CNN은 지역 수용영역(local receptive field)과 가중치 공유로 효율을 높인다.</p>
+<h2 id="2-cnn-구성-요소">2. CNN 구성 요소</h2>
 <ul>
-<li><strong>CNN 동작 이해</strong>: Convolution은 이미지의 지역 특징을 찾고, Pooling은 중요한 정보를 압축해 계산량을 줄인다.</li>
-<li><strong>RNN 구조와 한계</strong>: 순서 정보를 반영할 수 있지만, 문장이 길어질수록 앞 정보를 잊는 문제가 생길 수 있다.</li>
-<li><strong>LSTM 필요성</strong>: 게이트 구조로 중요한 정보를 오래 유지해 장기 의존성 문제를 완화한다.</li>
-<li><strong>초급자 포인트</strong>: 데이터 형태가 모델 선택의 출발점이다. 이미지는 CNN 계열, 시퀀스는 RNN/LSTM/Transformer를 먼저 고려한다.</li>
+<li>Convolution Layer: 특징 추출(에지, 텍스처, 패턴)</li>
+<li>Activation(ReLU): 비선형성 부여</li>
+<li>Pooling: 공간 크기 축소, 과적합 완화</li>
+<li>Fully Connected: 최종 분류</li>
 </ul>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<p>이미지: 합성곱 → 특징맵 → 분류</p>
-<p>시퀀스: 입력 시점 t1→t2→t3 → 상태 전달 → 출력</p>
-<h3 id="그림">그림</h3>
 <div class="mermaid">flowchart LR;
-IMG[Image] --> CONV[Convolution];
-CONV --> POOL[Pooling];
-POOL --> CLS[Classifier];</div>
-<div class="mermaid">flowchart LR;
-X1[x1] --> H1[h1];
-H1 --> H2[h2];
-X2[x2] --> H2;
-H2 --> H3[h3];
-X3[x3] --> H3;
-H3 --> Y[Output];</div>
-<hr />
-<h2 id="학습-예시-및-코드">학습 예시 및 코드</h2>
+I[이미지 입력] --> C[Conv + ReLU];
+C --> P[Pooling];
+P --> C2[Conv + ReLU];
+C2 --> F[Fully Connected];
+F --> O[클래스 확률];</div>
+<h2 id="3-대표-모델-발전">3. 대표 모델 발전</h2>
 <ul>
-<li>CNN은 지역 패턴(엣지/텍스처)을 계층적으로 학습해 이미지 인식에 강하다.</li>
-<li>RNN은 이전 상태를 다음 계산에 전달해 문장/시계열을 처리한다.</li>
-<li>LSTM/GRU는 장기 의존성 문제를 완화해 긴 문맥 처리 성능을 높인다.</li>
+<li>LeNet: 초기 CNN 구조</li>
+<li>AlexNet: GPU 기반 대규모 학습의 시작</li>
+<li>VGG: 단순하고 깊은 구조</li>
+<li>ResNet: 잔차 연결로 깊은 네트워크 학습 안정화</li>
 </ul>
-<pre><code class="language-python"># 개념 예시 (Keras)
-# model = Sequential([
-#   Conv2D(32, 3, activation=&#x27;relu&#x27;), MaxPooling2D(),
-#   Flatten(), Dense(10, activation=&#x27;softmax&#x27;)
-# ])</code></pre>
-<ul>
-<li>최신 실무에서는 이미지는 CNN 백본+Transformer, 텍스트는 Transformer 기반 모델 사용이 일반적이다.</li>
-</ul>
-<hr />
-<h2 id="핵심개념-정리">핵심개념 정리</h2>
-<ul>
-<li>CNN: 공간 특징 추출</li>
-<li>RNN/LSTM: 시간 순서 정보 반영</li>
-<li>모델 선택은 데이터 형태(이미지/시계열/텍스트)에 따라 결정</li>
-</ul>
-<hr />
 <h2 id="실습-미션">실습 미션</h2>
 <ol>
-<li>이번 주 학습 목표 3가지를 확인하고, 각 목표를 검증할 수 있는 실습 항목을 최소 1개씩 수행한다.</li>
-<li>실습 과정(입력값, 코드/설정, 실행 결과)을 문서나 노트에 정리한다.</li>
-<li>어려웠던 점 1가지와 다음 주에 개선할 점 1가지를 작성한다.</li>
+<li>CIFAR-10 이미지 분류 모델 학습.</li>
+<li>필터 시각화로 학습된 특징 관찰.</li>
+<li>데이터 증강 전/후 성능 비교.</li>
 </ol>
-<hr />
-<h2 id="확장-실습">확장 실습</h2>
-<ul>
-<li>MNIST CNN 베이스라인 학습</li>
-<li>간단한 시계열 데이터에 LSTM 적용</li>
-</ul>
-<hr />
-<h2 id="체크리스트">체크리스트</h2>
-<ul>
-<li>[ ] CNN과 RNN의 차이를 설명할 수 있다.</li>
-<li>[ ] LSTM의 필요성을 설명할 수 있다.</li>
-<li>[ ] 데이터 유형에 맞는 모델을 고를 수 있다.</li>
-</ul></article>
+<h2 id="정리">정리</h2>
+<p>CNN은 &quot;공간 구조를 보존한 특징 추출&quot;로 컴퓨터 비전 성능을 크게 끌어올렸다.</p></article>

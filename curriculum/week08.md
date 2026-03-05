@@ -1,63 +1,42 @@
-# Week 08 — LLM의 탄생 (GPT & Gemini) 확장
+# Week 08 — Transformer: 현대 AI의 핵심 전환점
 
 ## 학습 목표
-- Pre-training과 Fine-tuning의 차이를 설명할 수 있다.
-- RLHF/정렬(Alignment)의 목적과 한계를 설명할 수 있다.
-- 서비스 목적에 맞게 모델 선택 기준을 제시할 수 있다.
+- Transformer의 Self-Attention 원리를 설명한다.
+- RNN 대비 병렬 처리 장점을 이해한다.
+- 인코더/디코더 구조와 포지셔널 인코딩의 역할을 파악한다.
 
 ---
 
-## 1. LLM은 어떻게 만들어지는가?
+## 1. 왜 Transformer가 등장했나?
+RNN은 순차 계산이라 느리고 긴 문맥 학습이 어렵다.
+Transformer는 Attention으로 토큰 간 관계를 직접 계산해 해결했다.
 
-대규모 언어모델은 보통 3단계로 발전합니다.
+## 2. Self-Attention 핵심
+입력 토큰마다 Query(Q), Key(K), Value(V)를 만들고,
+Q와 K 유사도로 가중치를 계산해 V를 가중합한다.
 
-1) Pre-training  
-2) Fine-tuning  
-3) Alignment(RLHF 등)
+## 3. 구조
+- Multi-Head Attention: 다양한 관점의 관계 학습
+- Feed Forward Network
+- Residual + LayerNorm
+- Positional Encoding: 순서 정보 주입
 
----
+```mermaid
+flowchart TD
+    T[Token Embedding] --> P[Positional Encoding]
+    P --> A[Multi-Head Attention]
+    A --> F[Feed Forward]
+    F --> O[Contextual Representation]
+```
 
-## 2. Pre-training
+## 4. 의의
+Transformer는 BERT, GPT, T5 등 대형 언어모델의 공통 기반이다.
 
-웹 문서, 책, 코드 등 대규모 데이터로 언어 패턴을 학습합니다.
-이 단계에서 모델은 일반 지식과 문장 생성 능력을 갖춥니다.
-
----
-
-## 3. Fine-tuning
-
-특정 도메인(의료, 법률, 고객지원)에 맞게 추가 학습해 정확성과 일관성을 높입니다.
-
-예시:
-- 요약 전용 모델
-- 질의응답 전용 모델
-
----
-
-## 4. Alignment와 RLHF
-
-모델이 사람 기대에 맞는 답변을 하도록 선호도 기반으로 정렬합니다.
-
-### 장점
-- 유해 응답 감소
-- 사용자 만족도 향상
-
-### 한계
-- 과도한 보수성
-- 문화/언어별 편향 이슈
-
----
-
-## 5. 모델 선택 기준
-
-- 성능(정확도, 추론 품질)
-- 속도(응답 지연)
-- 비용(API 단가)
-- 안전성(필터링 정책)
-- 데이터 보안 요구사항
-
----
+## 실습 미션
+1. 짧은 문장에서 attention score 시각화.
+2. positional encoding 유무 성능 비교.
+3. 번역 태스크에서 seq2seq와 Transformer 비교.
 
 ## 정리
-- LLM 개발은 사전학습-미세조정-정렬의 흐름으로 이해할 수 있다.
-- 서비스 목적이 모델 선택을 결정한다.
+Transformer는 LLM 시대를 연 핵심 아키텍처다.
+
