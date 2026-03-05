@@ -1,72 +1,46 @@
-# Week 03 — Flask 서버 기초 확장
+# Week 03 — 데이터 다루기: NumPy와 pandas 기초
 
 ## 학습 목표
-- HTTP 요청/응답의 기본 구조를 설명할 수 있다.
-- Flask 라우팅으로 URL별 기능을 분리할 수 있다.
-- 템플릿 렌더링으로 동적 웹 페이지를 만들 수 있다.
+- 배열/테이블 데이터를 다루는 이유를 이해한다.
+- NumPy로 수치 연산을 수행한다.
+- pandas로 CSV를 읽고 기초 전처리를 수행한다.
 
 ---
 
-## 1. 웹 서버란 무엇인가?
+## 1. 데이터 과학 워크플로우
+수집 → 정제 → 탐색 → 모델 학습 → 평가 → 배포
 
-웹 서버는 사용자의 요청(Request)을 받고, 결과(Response)를 돌려주는 프로그램입니다.
-Flask는 Python으로 이 과정을 쉽게 구현하게 해주는 프레임워크입니다.
-
----
-
-## 2. GET과 POST
-
-- GET: 주로 데이터 조회
-- POST: 주로 데이터 생성/전송
-
+## 2. NumPy 핵심
 ```python
-from flask import Flask, request
-app = Flask(__name__)
-
-@app.route('/hello', methods=['GET'])
-def hello():
-    name = request.args.get('name', 'Guest')
-    return f"Hello, {name}!"
+import numpy as np
+arr = np.array([1, 2, 3, 4])
+print(arr.mean(), arr.std())
 ```
 
----
+- 벡터화 연산으로 속도 향상
+- 행렬 계산은 딥러닝의 기반
 
-## 3. 라우팅과 URL 파라미터
-
+## 3. pandas 핵심
 ```python
-@app.route('/user/<username>')
-def user_profile(username):
-    return f"{username}님의 프로필 페이지"
+import pandas as pd
+
+df = pd.DataFrame({
+    "hours": [1, 2, 3, 4],
+    "score": [55, 65, 78, 90]
+})
+print(df.describe())
 ```
 
-라우팅은 URL과 함수를 연결하는 핵심 기능입니다.
+## 4. 전처리 기본
+- 결측치 처리: `dropna()`, `fillna()`
+- 범주형 인코딩: one-hot
+- 스케일링: 표준화(z-score), 정규화(min-max)
 
----
-
-## 4. 템플릿 렌더링
-
-```python
-from flask import render_template
-
-@app.route('/greet/<name>')
-def greet(name):
-    return render_template('greet.html', name=name)
-```
-
-템플릿을 쓰면 HTML과 Python 로직을 분리할 수 있어 유지보수가 쉬워집니다.
-
----
-
-## 5. 미니 프로젝트: 할 일 목록 서버
-
-- `/tasks`에서 목록 조회(GET)
-- `/tasks`로 신규 할 일 등록(POST)
-
-이 구조를 통해 REST API 설계의 기본 감각을 익힐 수 있습니다.
-
----
+## 실습 미션
+1. CSV를 읽고 결측치를 평균으로 대체.
+2. 상관관계를 계산하고 학습에 쓸 컬럼 선택.
+3. 학습/검증 데이터 분리(train/test split).
 
 ## 정리
-- 웹은 요청/응답으로 동작한다.
-- Flask 라우팅은 기능 분리의 시작점이다.
-- 템플릿은 동적 화면 구성의 핵심이다.
+좋은 모델은 좋은 데이터에서 시작한다. 오늘은 ML 이전 단계인 데이터 준비 역량을 강화했다.
+

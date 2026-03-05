@@ -1,71 +1,42 @@
-<article class="doc-content"><h1 id="week-09-api-활용과-프롬프트-엔지니어링">Week 09 — API 활용과 프롬프트 엔지니어링</h1>
-<h2 id="주제">주제</h2>
-<p>LLM API 호출 구조와 프롬프트 설계 방법을 통해 응답 품질을 개선한다.</p>
-<hr />
+<article class="doc-content"><h1 id="week-09-llm-기초-gpt-bert-생성형-ai의-동작-원리">Week 09 — LLM 기초: GPT, BERT, 생성형 AI의 동작 원리</h1>
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>API 요청/응답(JSON) 구조를 읽고 작성할 수 있다.</li>
-<li>시스템/사용자 프롬프트 역할을 구분할 수 있다.</li>
-<li>제약조건, 예시, 출력 형식을 포함한 프롬프트를 설계할 수 있다.</li>
+<li>LLM의 사전학습(Pretraining)과 파인튜닝(Fine-tuning)을 구분한다.</li>
+<li>GPT와 BERT의 목적 차이를 설명한다.</li>
+<li>토큰화, 확률적 다음 토큰 예측 원리를 이해한다.</li>
 </ul>
 <hr />
-<h2 id="학습-내용-목표-연계">학습 내용 (목표 연계)</h2>
+<h2 id="1-llm이란">1. LLM이란?</h2>
+<p>대규모 텍스트 데이터와 Transformer로 학습한 언어 모델.</p>
+<h2 id="2-학습-단계">2. 학습 단계</h2>
+<ol>
+<li>사전학습: 방대한 텍스트로 일반 언어 패턴 학습</li>
+<li>지시튜닝/파인튜닝: 특정 목적에 맞게 조정</li>
+<li>정렬(Alignment): 사람 의도에 맞는 응답 강화(RLHF 등)</li>
+</ol>
+<h2 id="3-gpt-vs-bert">3. GPT vs BERT</h2>
+<table>
+<thead><tr><th>모델</th><th>방향성</th><th>주 용도</th></tr></thead><tbody>
+<tr><td>GPT</td><td>Decoder 기반(자기회귀)</td><td>텍스트 생성, 챗봇</td></tr>
+<tr><td>BERT</td><td>Encoder 기반(양방향)</td><td>이해/분류/검색</td></tr>
+</tbody></table>
+<h2 id="4-생성-원리">4. 생성 원리</h2>
 <ul>
-<li><strong>JSON 요청 구조</strong>: <code>model</code>, <code>messages</code>, <code>temperature</code> 등 핵심 필드를 이해하고 요청 본문을 직접 구성한다.</li>
-<li><strong>프롬프트 역할 분리</strong>: 시스템 프롬프트는 규칙, 사용자 프롬프트는 과업 지시를 담당한다.</li>
-<li><strong>출력 형식 고정</strong>: JSON 형식/키 이름을 지정하면 후처리 안정성이 높아진다.</li>
-<li><strong>초급자 포인트</strong>: 같은 질문도 프롬프트 구조에 따라 품질이 크게 달라지므로 버전별 비교 기록이 중요하다.</li>
+<li>입력을 토큰으로 분해</li>
+<li>각 단계에서 다음 토큰 확률 계산</li>
+<li>샘플링(temperature, top-k/top-p)으로 출력 다양성 제어</li>
 </ul>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<p>요구사항 정의 → 프롬프트 설계 → API 호출 → 결과 검증/개선</p>
-<h3 id="그림">그림</h3>
-<div class="mermaid">flowchart LR;
-R[요구사항] --> P[Prompt 설계];
-P --> A[API 요청];
-A --> L[LLM 응답];
-L --> V[검증/후처리];</div>
-<hr />
-<h2 id="학습-예시-및-코드">학습 예시 및 코드</h2>
+<h2 id="5-한계와-주의점">5. 한계와 주의점</h2>
 <ul>
-<li>API 호출 시 모델명, 메시지 배열, 파라미터(temperature, max_tokens)를 명시한다.</li>
-<li>시스템 프롬프트는 전역 규칙, 사용자 프롬프트는 작업 요구를 전달한다.</li>
-<li>구조화 출력(JSON schema, 키 고정) 요구를 주면 후처리가 안정적이다.</li>
+<li>환각(Hallucination)</li>
+<li>최신성 부족(학습 시점 제한)</li>
+<li>편향/보안/저작권 이슈</li>
 </ul>
-<pre><code class="language-python">payload = {
-  &quot;model&quot;: &quot;gpt-4.1-mini&quot;,
-  &quot;messages&quot;: [
-    {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;항상 JSON으로 답하라&quot;},
-    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;3문장 요약&quot;}
-  ]
-}</code></pre>
-<ul>
-<li>최신 운영에서는 프롬프트 버전관리, 자동 평가셋 회귀 테스트를 함께 적용한다.</li>
-</ul>
-<hr />
-<h2 id="핵심개념-정리">핵심개념 정리</h2>
-<ul>
-<li>API 구조: request → response</li>
-<li>프롬프트 분리: system / user / assistant</li>
-<li>품질 개선: 제약 명시 + 평가 루프</li>
-</ul>
-<hr />
 <h2 id="실습-미션">실습 미션</h2>
 <ol>
-<li>이번 주 학습 목표 3가지를 확인하고, 각 목표를 검증할 수 있는 실습 항목을 최소 1개씩 수행한다.</li>
-<li>실습 과정(입력값, 코드/설정, 실행 결과)을 문서나 노트에 정리한다.</li>
-<li>어려웠던 점 1가지와 다음 주에 개선할 점 1가지를 작성한다.</li>
+<li>temperature 변화에 따른 답변 스타일 비교.</li>
+<li>동일 질문에서 GPT/BERT 계열 역할 분리 설계.</li>
+<li>프롬프트 개선 전/후 품질 평가표 작성.</li>
 </ol>
-<hr />
-<h2 id="확장-실습">확장 실습</h2>
-<ul>
-<li>함수호출(Function Calling) 형태로 출력 강제</li>
-<li>실패 케이스 수집 후 프롬프트 수정</li>
-</ul>
-<hr />
-<h2 id="체크리스트">체크리스트</h2>
-<ul>
-<li>[ ] JSON 요청 구조를 작성할 수 있다.</li>
-<li>[ ] 시스템/사용자 프롬프트를 구분할 수 있다.</li>
-<li>[ ] 개선된 프롬프트를 설계할 수 있다.</li>
-</ul></article>
+<h2 id="정리">정리</h2>
+<p>LLM은 확률적 언어 생성기이며, 좋은 활용에는 프롬프트와 검증 절차가 필수다.</p></article>

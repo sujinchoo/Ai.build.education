@@ -4,84 +4,84 @@
     {
       "id": 0,
       "week": "01",
-      "title": "Week 01 — 컴퓨터 원리와 Python 입문",
+      "title": "Week 01 — AI 시대를 위한 컴퓨터와 Python 입문",
       "source": "curriculum/week01.md",
       "html": "built/weeks/week01.html"
     },
     {
       "id": 1,
       "week": "02",
-      "title": "Week 02 — Python 프로그래밍 기초",
+      "title": "Week 02 — Python 핵심 문법 심화와 문제 해결",
       "source": "curriculum/week02.md",
       "html": "built/weeks/week02.html"
     },
     {
       "id": 2,
       "week": "03",
-      "title": "Week 03 — Flask 서버 기초",
+      "title": "Week 03 — 데이터 다루기: NumPy와 pandas 기초",
       "source": "curriculum/week03.md",
       "html": "built/weeks/week03.html"
     },
     {
       "id": 3,
       "week": "04",
-      "title": "Week 04 — Machine Learning 기초",
+      "title": "Week 04 — 머신러닝 기초: 개념, 원리, 대표 알고리즘",
       "source": "curriculum/week04.md",
       "html": "built/weeks/week04.html"
     },
     {
       "id": 4,
       "week": "05",
-      "title": "Week 05 — Neural Network 기초",
+      "title": "Week 05 — 딥러닝의 이해: 인공신경망(ANN)과 학습 메커니즘",
       "source": "curriculum/week05.md",
       "html": "built/weeks/week05.html"
     },
     {
       "id": 5,
       "week": "06",
-      "title": "Week 06 — CNN & RNN 기초",
+      "title": "Week 06 — CNN: 이미지 인식 혁신 모델의 원리",
       "source": "curriculum/week06.md",
       "html": "built/weeks/week06.html"
     },
     {
       "id": 6,
       "week": "07",
-      "title": "Week 07 — Transformer 기초",
+      "title": "Week 07 — RNN, LSTM, GRU: 시퀀스 학습의 원리",
       "source": "curriculum/week07.md",
       "html": "built/weeks/week07.html"
     },
     {
       "id": 7,
       "week": "08",
-      "title": "Week 08 — LLM의 탄생 (GPT & Gemini)",
+      "title": "Week 08 — Transformer: 현대 AI의 핵심 전환점",
       "source": "curriculum/week08.md",
       "html": "built/weeks/week08.html"
     },
     {
       "id": 8,
       "week": "09",
-      "title": "Week 09 — API 활용과 프롬프트 엔지니어링",
+      "title": "Week 09 — LLM 기초: GPT, BERT, 생성형 AI의 동작 원리",
       "source": "curriculum/week09.md",
       "html": "built/weeks/week09.html"
     },
     {
       "id": 9,
       "week": "10",
-      "title": "Week 10 — GitHub, 코드의 타임머신",
+      "title": "Week 10 — ChatGPT를 성장시킨 핵심 모델 계보 정리",
       "source": "curriculum/week10.md",
       "html": "built/weeks/week10.html"
     },
     {
       "id": 10,
       "week": "11",
-      "title": "Week 11 — AI 서비스 구현 (MVP)",
+      "title": "Week 11 — AI 서비스 구현: 프롬프트 엔지니어링과 RAG 기초",
       "source": "curriculum/week11.md",
       "html": "built/weeks/week11.html"
     },
     {
       "id": 11,
       "week": "12",
-      "title": "Week 12 — 클라우드 배포와 최종 발표",
+      "title": "Week 12 — 최종 정리: AI 기초 과정 통합과 HTML 학습 페이지 운영",
       "source": "curriculum/week12.md",
       "html": "built/weeks/week12.html"
     }

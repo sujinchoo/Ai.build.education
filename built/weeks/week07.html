@@ -1,66 +1,40 @@
-<article class="doc-content"><h1 id="week-07-transformer-기초">Week 07 — Transformer 기초</h1>
-<h2 id="주제">주제</h2>
-<p>Self-Attention을 중심으로 Transformer 구조와 장점을 이해한다.</p>
-<hr />
+<article class="doc-content"><h1 id="week-07-rnn-lstm-gru-시퀀스-학습의-원리">Week 07 — RNN, LSTM, GRU: 시퀀스 학습의 원리</h1>
 <h2 id="학습-목표">학습 목표</h2>
 <ul>
-<li>Q/K/V와 Self-Attention 계산 흐름을 설명할 수 있다.</li>
-<li>Multi-Head Attention의 필요성을 설명할 수 있다.</li>
-<li>RNN 대비 Transformer의 장점을 설명할 수 있다.</li>
+<li>순차 데이터(텍스트, 시계열)의 특성을 이해한다.</li>
+<li>RNN의 순환 구조와 한계를 설명한다.</li>
+<li>LSTM/GRU가 gradient 소실 문제를 어떻게 개선하는지 이해한다.</li>
 </ul>
 <hr />
-<h2 id="학습-내용-목표-연계">학습 내용 (목표 연계)</h2>
+<h2 id="1-시퀀스-데이터란">1. 시퀀스 데이터란?</h2>
+<p>시간/순서가 중요한 데이터.</p>
 <ul>
-<li><strong>Q/K/V 흐름</strong>: Query는 ‘무엇을 찾는지’, Key는 ‘무엇을 가지고 있는지’, Value는 ‘전달할 정보’로 이해하면 쉽다.</li>
-<li><strong>Self-Attention 계산</strong>: 단어 간 관련도를 점수화해 문맥상 중요한 토큰 정보를 더 많이 반영한다.</li>
-<li><strong>Multi-Head 필요성</strong>: 하나의 관점이 아닌 여러 관점에서 관계를 동시에 학습해 표현력을 높인다.</li>
-<li><strong>초급자 포인트</strong>: Transformer는 순차 처리에 묶이지 않아 병렬 계산에 유리하다는 점이 RNN 대비 큰 장점이다.</li>
+<li>문장: 앞 단어가 뒤 단어 의미에 영향</li>
+<li>주가/센서: 과거 시점이 미래 예측에 영향</li>
 </ul>
-<hr />
-<h2 id="비주얼-콘셉트">비주얼 콘셉트</h2>
-<p>토큰 임베딩 → Q/K/V 생성 → Attention 가중합 → 문맥 반영 표현</p>
-<h3 id="그림">그림</h3>
+<h2 id="2-rnn-기본-원리">2. RNN 기본 원리</h2>
+<p>현재 입력과 이전 은닉상태를 함께 사용해 다음 상태를 계산.</p>
+<p><code>h_t = f(x_t, h_{t-1})</code></p>
+<h2 id="3-rnn-한계">3. RNN 한계</h2>
+<ul>
+<li>긴 문맥에서 정보 유지 어려움</li>
+<li>기울기 소실/폭주 문제</li>
+</ul>
+<h2 id="4-lstm과-gru">4. LSTM과 GRU</h2>
+<ul>
+<li>LSTM: 입력/망각/출력 게이트 + 셀 상태로 장기 의존성 개선</li>
+<li>GRU: 구조 단순화로 계산 효율 향상</li>
+</ul>
 <div class="mermaid">flowchart LR;
-T[Token Embedding] --> QKV[Q K V];
-QKV --> A[Attention Score];
-A --> C[Context Mix];
-C --> O[Output Representation];</div>
-<hr />
-<h2 id="학습-예시-및-코드">학습 예시 및 코드</h2>
-<ul>
-<li>Self-Attention은 각 토큰이 다른 토큰을 얼마나 참고할지 가중치를 계산한다.</li>
-<li>Multi-Head는 서로 다른 관점의 관계를 병렬로 학습한다.</li>
-<li>Transformer는 병렬 처리에 유리해 대규모 학습과 긴 문맥 처리에서 강점을 보인다.</li>
-</ul>
-<pre><code class="language-python"># 개념 수식
-# Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V</code></pre>
-<ul>
-<li>최신 LLM은 대부분 Transformer 계열이며, 긴 컨텍스트/효율화를 위한 변형(예: GQA, MoE)이 활발히 쓰인다.</li>
-</ul>
-<hr />
-<h2 id="핵심개념-정리">핵심개념 정리</h2>
-<ul>
-<li>Attention: 중요도 기반 정보 결합</li>
-<li>Multi-Head: 다양한 관계 학습</li>
-<li>Transformer: 병렬성 + 확장성</li>
-</ul>
-<hr />
+X1[x_t] --> R[RNN/LSTM Cell];
+H[h_t-1] --> R;
+R --> O[y_t];
+R --> N[h_t];</div>
 <h2 id="실습-미션">실습 미션</h2>
 <ol>
-<li>이번 주 학습 목표 3가지를 확인하고, 각 목표를 검증할 수 있는 실습 항목을 최소 1개씩 수행한다.</li>
-<li>실습 과정(입력값, 코드/설정, 실행 결과)을 문서나 노트에 정리한다.</li>
-<li>어려웠던 점 1가지와 다음 주에 개선할 점 1가지를 작성한다.</li>
+<li>간단한 문장 감성 분류(RNN/LSTM 비교).</li>
+<li>시계열 예측에서 window 크기 변경 실험.</li>
+<li>LSTM과 GRU의 학습 시간/성능 비교.</li>
 </ol>
-<hr />
-<h2 id="확장-실습">확장 실습</h2>
-<ul>
-<li>Positional Encoding 필요성 정리</li>
-<li>Encoder-only / Decoder-only 구조 비교</li>
-</ul>
-<hr />
-<h2 id="체크리스트">체크리스트</h2>
-<ul>
-<li>[ ] Q/K/V 개념을 설명할 수 있다.</li>
-<li>[ ] Multi-Head Attention 이유를 설명할 수 있다.</li>
-<li>[ ] Transformer 장점을 말할 수 있다.</li>
-</ul></article>
+<h2 id="정리">정리</h2>
+<p>RNN 계열은 LLM 이전 자연어처리의 핵심 기반을 제공했다.</p></article>

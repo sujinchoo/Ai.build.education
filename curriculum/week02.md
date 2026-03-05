@@ -1,118 +1,50 @@
-# Week 02 — Python 프로그래밍 기초 확장
+# Week 02 — Python 핵심 문법 심화와 문제 해결
 
 ## 학습 목표
-- 변수와 자료형을 실제 문제에 맞게 선택하여 사용할 수 있다.
-- 리스트와 반복문으로 여러 데이터를 효율적으로 처리할 수 있다.
-- 조건문과 함수로 읽기 쉽고 재사용 가능한 코드를 작성할 수 있다.
+- 함수, 리스트, 딕셔너리, 예외 처리의 의미를 이해한다.
+- 작은 문제를 절차적으로 분해해 코드로 구현한다.
+- AI 전처리에 필요한 문자열/리스트 처리를 연습한다.
 
 ---
 
-## 1. Python 문법을 왜 먼저 배우는가?
-
-Python은 문법이 간결하고 가독성이 높아, 프로그래밍의 핵심 사고를 익히기에 좋습니다.
-이번 주는 "작동하는 코드"를 넘어서 "설명 가능한 코드"를 목표로 합니다.
-
----
-
-## 2. 변수와 자료형
-
-### 2.1 변수
-변수는 데이터를 저장하는 이름표입니다.
-
+## 1. 함수(Function): 재사용 가능한 블록
 ```python
-name = "Jisoo"
-age = 17
+def normalize_score(score, max_score=100):
+    return round(score / max_score, 3)
+
+print(normalize_score(87))
 ```
 
-### 2.2 자료형
-- `str`: 문자열
-- `int`: 정수
-- `float`: 실수
-- `bool`: 참/거짓
-- `list`: 여러 값을 순서대로 저장
+## 2. 컬렉션 자료구조
+- 리스트(list): 순서가 있는 데이터 묶음
+- 튜플(tuple): 수정이 어려운 고정 데이터
+- 딕셔너리(dict): key-value 기반 데이터
 
 ```python
-print(type(name))
-print(type(age))
+student = {"name": "Jin", "python": 85, "math": 90}
+avg = (student["python"] + student["math"]) / 2
+print(avg)
 ```
 
----
-
-## 3. 리스트와 반복문
-
-리스트는 여러 개의 값을 한 번에 다룰 때 가장 기본이 되는 자료구조입니다.
-
+## 3. 예외 처리
 ```python
-scores = [88, 72, 95, 61]
-for score in scores:
-    print(score)
+try:
+    x = int(input("숫자 입력: "))
+    print(100 / x)
+except ValueError:
+    print("정수를 입력하세요")
+except ZeroDivisionError:
+    print("0으로 나눌 수 없습니다")
 ```
 
-### 핵심 포인트
-- 인덱스는 `0`부터 시작
-- `for`문은 반복 작업 자동화에 필수
+## 4. 알고리즘 사고 연습
+- 문제 정의 → 입력/출력 설계 → 예외 케이스 확인 → 구현 → 테스트
 
----
-
-## 4. 조건문으로 의사결정하기
-
-```python
-score = 72
-
-if score >= 90:
-    print("A")
-elif score >= 80:
-    print("B")
-else:
-    print("C 이하")
-```
-
-조건문은 프로그램이 상황에 따라 다른 행동을 하도록 만듭니다.
-
----
-
-## 5. 함수로 코드 구조화하기
-
-함수는 반복되는 로직을 묶는 도구입니다.
-
-```python
-def grade(score):
-    if score >= 90:
-        return "A"
-    elif score >= 80:
-        return "B"
-    else:
-        return "C"
-```
-
-```python
-for s in [95, 81, 67]:
-    print(s, grade(s))
-```
-
----
-
-## 6. 통합 예제: 학생 성적 리포트
-
-```python
-students = [
-    {"name": "민수", "score": 92},
-    {"name": "지연", "score": 78},
-    {"name": "하늘", "score": 85},
-]
-
-def pass_or_fail(score):
-    return "합격" if score >= 80 else "보완 필요"
-
-for st in students:
-    print(f"{st['name']} - {st['score']}점 - {pass_or_fail(st['score'])}")
-```
-
-이 예제는 변수, 자료형, 리스트, 조건문, 함수를 모두 연결합니다.
-
----
+## 실습 미션
+1. 학생 점수 리스트의 평균/최대/최소를 함수로 작성.
+2. 문장 빈도수 카운터(딕셔너리) 작성.
+3. 잘못된 입력을 처리하는 계산기 작성.
 
 ## 정리
-- 변수와 자료형은 프로그램의 데이터 모델을 만든다.
-- 리스트와 반복문은 대량 데이터를 처리하게 해준다.
-- 조건문과 함수는 코드의 논리성과 재사용성을 높여준다.
+AI 모델 이전에, 데이터 처리와 안정적 코드를 위한 Python 기본기를 단단히 만든다.
+
